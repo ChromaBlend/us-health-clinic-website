@@ -65,7 +65,7 @@ const FoodSignalProgram = () => {
                     {/* Hero Image */}
                     <FadeIn delay={0.4} className="order-1 lg:order-2 relative">
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white rotate-1 hover:rotate-0 transition duration-700">
-                            <img src="https://placehold.co/600x700/0D5D56/FFFFFF?text=Woman+Looking+Left+at+CTA" alt="Woman looking towards the text" className="w-full h-auto object-cover" />
+                            <img src="/images/food-signal-program/hero-image.png" alt="Woman looking towards the text" className="w-full h-auto object-cover" />
 
                             {/* Sticker Overlay */}
                             <div className="absolute bottom-6 left-6 bg-gray-900 text-white p-6 rounded-2xl shadow-lg max-w-[240px] animate-[float_3s_ease-in-out_infinite]">
@@ -171,7 +171,7 @@ const FoodSignalProgram = () => {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <FadeIn direction="right" className="relative order-2 lg:order-1">
                             <div className="absolute inset-0 bg-[#0D5D56]/5 rounded-[2.5rem] transform rotate-3"></div>
-                            <img src="https://placehold.co/500x500/0D5D56/FFFFFF?text=Snap+Photo+via+Text" alt="Phone texting food photo" className="relative rounded-[2.5rem] shadow-2xl w-full" />
+                            <img src="/images/food-signal-program/snap-and-send.png" alt="Phone texting food photo" className="relative rounded-[2.5rem] shadow-2xl w-full" />
                         </FadeIn>
                         <FadeIn direction="left" className="space-y-6 order-1 lg:order-2">
                             <span className="bg-white text-[#0D5D56] border border-[#0D5D56]/20 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">Step 01</span>
@@ -199,17 +199,26 @@ const FoodSignalProgram = () => {
                             <p className="text-lg text-gray-600 leading-relaxed">
                                 You're not doing this alone. You will receive guidance, support, and feedback directly from our team.
                             </p>
-                            <div className="flex items-center gap-4 pt-4">
-                                <img src="https://placehold.co/60x60/0D5D56/FFFFFF?text=RD" alt="Melissa RD" className="w-14 h-14 rounded-full border-4 border-white shadow-md" />
-                                <div>
-                                    <p className="font-serif font-bold text-gray-900 text-lg">Melissa Vasikauskas, RD</p>
-                                    <p className="text-sm text-[#0D5D56] font-medium">Lead Registered Dietitian</p>
+                            <div className="space-y-4 pt-4">
+                                <div className="flex items-center gap-4">
+                                    <img src="/images/food-signal-program/melissa.png" alt="Melissa RD" className="w-14 h-14 rounded-full border-4 border-white shadow-md" />
+                                    <div>
+                                        <p className="font-serif font-bold text-gray-900 text-lg">Melissa Vasikauskas, RD</p>
+                                        <p className="text-sm text-[#0D5D56] font-medium">Lead Registered Dietitian</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <img src="/images/food-signal-program/bree.png" alt="Bree MPH" className="w-14 h-14 rounded-full border-4 border-white shadow-md" />
+                                    <div>
+                                        <p className="font-serif font-bold text-gray-900 text-lg">Bree Gorman, MPH</p>
+                                        <p className="text-sm text-[#0D5D56] font-medium">Behavioral Strategy Lead</p>
+                                    </div>
                                 </div>
                             </div>
                         </FadeIn>
-                        <FadeIn direction="left" className="relative order-2">
+                        <FadeIn direction="left" className="relative order-2 h-full">
                             <div className="absolute inset-0 bg-gray-900/5 rounded-[2.5rem] transform -rotate-3"></div>
-                            <img src="https://placehold.co/500x500/0D5D56/FFFFFF?text=Dietitian+Feedback+UI" alt="Dietitian feedback message" className="relative rounded-[2.5rem] shadow-2xl w-full" />
+                            <img src="/images/food-signal-program/expert-feedback.png" alt="Dietitian feedback message" className="relative rounded-[2.5rem] shadow-2xl w-full h-full object-cover" />
                         </FadeIn>
                     </div>
 
@@ -217,7 +226,7 @@ const FoodSignalProgram = () => {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <FadeIn direction="right" className="relative order-2 lg:order-1">
                             <div className="absolute inset-0 bg-[#0D5D56]/5 rounded-[2.5rem] transform rotate-3"></div>
-                            <img src="https://placehold.co/500x500/F0F7F6/0D5D56?text=Community+Call" alt="Group coaching call" className="relative rounded-[2.5rem] shadow-2xl w-full" />
+                            <img src="/images/food-signal-program/community-call.png" alt="Group coaching call" className="relative rounded-[2.5rem] shadow-2xl w-full" />
                         </FadeIn>
                         <FadeIn direction="left" className="space-y-6 order-1 lg:order-2">
                             <span className="bg-white text-[#0D5D56] border border-[#0D5D56]/20 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">Step 03</span>
@@ -238,7 +247,7 @@ const FoodSignalProgram = () => {
                         <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
                             <div className="aspect-[4/3] overflow-hidden">
                                 <img
-                                    src="https://placehold.co/600x450/0D5D56/FFFFFF?text=Melissa+RD"
+                                    src="/images/food-signal-program/melissa.png"
                                     alt="Melissa Vasikauskas"
                                     className="w-full h-full object-cover"
                                 />
@@ -258,7 +267,7 @@ const FoodSignalProgram = () => {
                         <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
                             <div className="aspect-[4/3] overflow-hidden">
                                 <img
-                                    src="https://placehold.co/600x450/111827/FFFFFF?text=Bree+MPH"
+                                    src="/images/food-signal-program/bree.png"
                                     alt="Bree Gorman"
                                     className="w-full h-full object-cover"
                                 />
