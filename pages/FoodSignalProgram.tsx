@@ -4,6 +4,30 @@ import { Button, SectionHeading } from '../components/UI';
 import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
 
 const FoodSignalProgram = () => {
+    const teamMembers = [
+        {
+            name: "Melissa Vasikauskas, RD",
+            role: "Co-Founder & Lead Dietitian",
+            image: "/images/food-signal-program/melissa.png",
+            bio: "Leading the clinical strategy to ensure every insight is medically sound and evidence-based.",
+            imageClass: "object-cover"
+        },
+        {
+            name: "Bree Gorman, MPH",
+            role: "Behavioral Strategy Lead",
+            image: "/images/food-signal-program/bree.png",
+            bio: "Expert in habit formation and behavioral health, helping you make changes that actually stick.",
+            imageClass: "object-cover scale-110"
+        },
+        {
+            name: "Kyle Henry",
+            role: "CEO and Cofounder",
+            image: "/images/food-signal-program/kyle.png",
+            bio: "Kyle Henry is a humane technology entrepreneur and AI strategist who helps organizations build ethical AI products that put human wellbeing first. With over a decade of experience spanning finance, product development, and artificial intelligence, he's dedicated to ensuring technology serves people rather than exploits them.\n\nAt Tune, Kyle leads strategic vision and ensures every product decision aligns with the company's mission. When he's not being dad of 5, you'll find him attending men's groups, hiking Oregon's public lands, or mentoring the next generation of entrepreneurs.",
+            imageClass: "object-cover"
+        }
+    ];
+
     return (
         <div className="font-sans text-gray-900 antialiased selection:bg-[#0D5D56] selection:text-white">
             <style>
@@ -201,14 +225,14 @@ const FoodSignalProgram = () => {
                             </p>
                             <div className="space-y-4 pt-4">
                                 <div className="flex items-center gap-4">
-                                    <img src="/images/food-signal-program/melissa.png" alt="Melissa RD" className="w-14 h-14 rounded-full border-4 border-white shadow-md" />
+                                    <img src="/images/food-signal-program/melissa.png" alt="Melissa RD" className="w-14 h-14 rounded-full border-4 border-white shadow-md object-cover" />
                                     <div>
                                         <p className="font-serif font-bold text-gray-900 text-lg">Melissa Vasikauskas, RD</p>
                                         <p className="text-sm text-[#0D5D56] font-medium">Lead Registered Dietitian</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <img src="/images/food-signal-program/bree.png" alt="Bree MPH" className="w-14 h-14 rounded-full border-4 border-white shadow-md" />
+                                    <img src="/images/food-signal-program/bree.png" alt="Bree MPH" className="w-14 h-14 rounded-full border-4 border-white shadow-md object-cover" />
                                     <div>
                                         <p className="font-serif font-bold text-gray-900 text-lg">Bree Gorman, MPH</p>
                                         <p className="text-sm text-[#0D5D56] font-medium">Behavioral Strategy Lead</p>
@@ -216,9 +240,10 @@ const FoodSignalProgram = () => {
                                 </div>
                             </div>
                         </FadeIn>
-                        <FadeIn direction="left" className="relative order-2 h-full">
-                            <div className="absolute inset-0 bg-gray-900/5 rounded-[2.5rem] transform -rotate-3"></div>
-                            <img src="/images/food-signal-program/expert-feedback.png" alt="Dietitian feedback message" className="relative rounded-[2.5rem] shadow-2xl w-full h-full object-cover" />
+                        <FadeIn direction="left" className="relative order-2 w-full aspect-square lg:aspect-auto lg:h-full min-h-[400px]">
+                            <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                                <img src="/images/food-signal-program/expert-feedback.png" alt="Dietitian feedback message" className="w-full h-full object-cover" />
+                            </div>
                         </FadeIn>
                     </div>
 
@@ -241,46 +266,27 @@ const FoodSignalProgram = () => {
 
             {/* TEAM SECTION */}
             <section className="py-32 px-6 max-w-7xl mx-auto">
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {/* Melissa Card */}
-                    <FadeIn direction="up">
-                        <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
-                            <div className="aspect-[4/3] overflow-hidden">
-                                <img
-                                    src="/images/food-signal-program/melissa.png"
-                                    alt="Melissa Vasikauskas"
-                                    className="w-full h-full object-cover"
-                                />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    {teamMembers.map((member, index) => (
+                        <FadeIn key={index} direction="up" delay={index * 0.1}>
+                            <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
+                                <div className="aspect-[4/3] overflow-hidden">
+                                    <img
+                                        src={member.image}
+                                        alt={member.name}
+                                        className={`w-full h-full ${member.imageClass}`}
+                                    />
+                                </div>
+                                <div className="p-8 md:p-10 space-y-4 text-left flex-grow">
+                                    <h3 className="text-2xl font-bold text-gray-900 leading-tight">{member.name}</h3>
+                                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{member.role}</p>
+                                    <p className="text-gray-600 leading-relaxed font-light text-[15px] whitespace-pre-line">
+                                        {member.bio}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="p-8 md:p-10 space-y-4 text-left">
-                                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Melissa Vasikauskas, RD</h3>
-                                <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Co-Founder & Lead Dietitian</p>
-                                <p className="text-gray-600 leading-relaxed font-light text-[15px]">
-                                    Leading the clinical strategy to ensure every insight is medically sound and evidence-based.
-                                </p>
-                            </div>
-                        </div>
-                    </FadeIn>
-
-                    {/* Bree Card */}
-                    <FadeIn direction="up" delay={0.2}>
-                        <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
-                            <div className="aspect-[4/3] overflow-hidden">
-                                <img
-                                    src="/images/food-signal-program/bree.png"
-                                    alt="Bree Gorman"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div className="p-8 md:p-10 space-y-4 text-left">
-                                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Bree Gorman, MPH</h3>
-                                <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Behavioral Strategy Lead</p>
-                                <p className="text-gray-600 leading-relaxed font-light text-[15px]">
-                                    Expert in habit formation and behavioral health, helping you make changes that actually stick.
-                                </p>
-                            </div>
-                        </div>
-                    </FadeIn>
+                        </FadeIn>
+                    ))}
                 </div>
 
                 <div className="text-center mt-20">

@@ -18,7 +18,6 @@ import PrivacyPractices from './pages/PrivacyPractices';
 import MembershipAgreement from './pages/MembershipAgreement';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
-import NutritionSignalProgram from './pages/NutritionSignalProgram';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Subscribe from './pages/Subscribe';
@@ -101,7 +100,6 @@ const App = () => {
             <Route path="/membership-agreement" element={<PageTransition><MembershipAgreement /></PageTransition>} />
             <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
             <Route path="/terms-and-conditions" element={<PageTransition><TermsAndConditions /></PageTransition>} />
-            <Route path="/nutrition-signal-program" element={<PageTransition><NutritionSignalProgram /></PageTransition>} />
             <Route path="/signin" element={<PageTransition><SignIn /></PageTransition>} />
             <Route path="/signup" element={<PageTransition><SignUp /></PageTransition>} />
             <Route path="/subscribe" element={<PageTransition><Subscribe /></PageTransition>} />
