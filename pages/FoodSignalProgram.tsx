@@ -9,7 +9,7 @@ const FoodSignalProgram = () => {
             name: "Melissa Vasikauskas, RD",
             role: "Co-Founder & Lead Dietitian",
             image: "/images/food-signal-program/melissa.png",
-            bio: "Leading the clinical strategy to ensure every insight is medically sound and evidence-based.",
+            bio: "Leading clinical strategy to ensure every insight is medically sound and evidence-based.",
             imageClass: "object-cover"
         },
         {
@@ -23,7 +23,7 @@ const FoodSignalProgram = () => {
             name: "Kyle Henry",
             role: "CEO and Cofounder",
             image: "/images/food-signal-program/kyle.png",
-            bio: "Kyle Henry is a humane technology entrepreneur and AI strategist who helps organizations build ethical AI products that put human wellbeing first. With over a decade of experience spanning finance, product development, and artificial intelligence, he's dedicated to ensuring technology serves people rather than exploits them.\n\nAt Tune, Kyle leads strategic vision and ensures every product decision aligns with the company's mission. When he's not being dad of 5, you'll find him attending men's groups, hiking Oregon's public lands, or mentoring the next generation of entrepreneurs.",
+            bio: "Leading strategic vision to ensure product decisions align with compassionate, science-backed AI.",
             imageClass: "object-cover"
         }
     ];
