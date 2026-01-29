@@ -24,7 +24,7 @@ export interface PanelData {
     price: string;
     heroImage: string;
     popularTests: string[];
-    icon: React.ReactNode;
+    icon: string;
     benefits: {
         title: string;
         description: string;
@@ -43,7 +43,7 @@ export const panels: PanelData[] = [
         price: "$249",
         heroImage: "https://images.unsplash.com/photo-1523901839036-a3030662f220?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["Band Neutrophils", "Cellular Integrity", "Immune Aging"],
-        icon: <Icons.Clock />,
+        icon: "/images/what-we-test/Biological age.png",
         benefits: [
             {
                 title: "Measure True Aging",
@@ -92,7 +92,7 @@ export const panels: PanelData[] = [
         price: "$199",
         heroImage: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["Apolipoprotein B", "Lipoprotein(a)", "hs-CRP"],
-        icon: <Icons.Heart />,
+        icon: "/images/what-we-test/Heart & Vascular Health Biomarkers.png",
         benefits: [
             {
                 title: "Advanced Lipid Analysis",
@@ -151,7 +151,7 @@ export const panels: PanelData[] = [
         price: "$149",
         heroImage: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=2071",
         popularTests: ["ALT", "AST", "GGT"],
-        icon: <Icons.RefreshCw />,
+        icon: "/images/what-we-test/Liver Health Biomarkers.png",
         benefits: [
             {
                 title: "Detox Efficiency",
@@ -191,7 +191,7 @@ export const panels: PanelData[] = [
         price: "$149",
         heroImage: "https://images.unsplash.com/photo-1579126038374-6064e9370f0f?auto=format&fit=crop&q=80&w=2031",
         popularTests: ["eGFR", "Creatinine", "Electrolytes"],
-        icon: <Icons.Droplet />,
+        icon: "/images/what-we-test/Kidney Health Biomarkers.png",
         benefits: [
             {
                 title: "Filtration Power",
@@ -227,7 +227,7 @@ export const panels: PanelData[] = [
         price: "$299",
         heroImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1780",
         popularTests: ["Free Testosterone", "Estradiol", "DHEA-S"],
-        icon: <Icons.Zap />,
+        icon: "/images/what-we-test/Sex Hormones Biomarkers.png",
         benefits: [
             {
                 title: "Vitality & Drive",
@@ -276,7 +276,7 @@ export const panels: PanelData[] = [
         price: "$179",
         heroImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["HbA1c", "Fasting Insulin", "Uric Acid"],
-        icon: <Icons.Activity />,
+        icon: "/images/what-we-test/Metabolic Health Biomarkers.png",
         benefits: [
             {
                 title: "Insulin Sensitivity",
@@ -317,7 +317,7 @@ export const panels: PanelData[] = [
         price: "$149",
         heroImage: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["Vitamin D", "Magnesium", "Ferritin"],
-        icon: <Icons.Microscope />,
+        icon: "/images/what-we-test/Nutrients Biomarkers.png",
         benefits: [
             {
                 title: "Cellular Fuel",
@@ -362,7 +362,7 @@ export const panels: PanelData[] = [
         price: "$179",
         heroImage: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=2080",
         popularTests: ["hs-CRP", "Ferritin", "Homocysteine"],
-        icon: <Icons.AlertCircle />,
+        icon: "/images/what-we-test/Inflammation Biomarkers.png",
         benefits: [
             {
                 title: "Silent Fire Detection",
@@ -397,7 +397,7 @@ export const panels: PanelData[] = [
         price: "$159",
         heroImage: "https://images.unsplash.com/photo-1582215287661-d70725a071f1?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["TSH", "Free T3", "Free T4", "Antibodies"],
-        icon: <Icons.Cpu />,
+        icon: "/images/what-we-test/Thyroid Health Biomarkers.png",
         benefits: [
             {
                 title: "Metabolic Rate",
@@ -431,7 +431,7 @@ export const panels: PanelData[] = [
         price: "$149",
         heroImage: "https://images.unsplash.com/photo-1594911772125-07fc7a2d8d9f?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["Ferritin", "Iron Saturation", "Cortisol"],
-        icon: <Icons.BatteryCharging />,
+        icon: "/images/what-we-test/Energy Biomarkers.png",
         benefits: [
             {
                 title: "Iron Stores",
@@ -463,7 +463,7 @@ export const panels: PanelData[] = [
         price: "$169",
         heroImage: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["WBC Differentiation", "Autoimmune Markers"],
-        icon: <Icons.ShieldCheck />,
+        icon: "/images/what-we-test/Immune System Biomarkers.png",
         benefits: [
             {
                 title: "Defense Readiness",
@@ -511,7 +511,7 @@ export const panels: PanelData[] = [
         price: "$129",
         heroImage: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["IGF-1"],
-        icon: <Icons.User />,
+        icon: "/images/what-we-test/Body Composition Biomarkers.png",
         benefits: [
             {
                 title: "Growth Signaling",
@@ -539,7 +539,7 @@ export const panels: PanelData[] = [
         price: "$189",
         heroImage: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=2070",
         popularTests: ["Homocysteine", "Methylmalonic Acid", "RBC Folate"],
-        icon: <Icons.Dna />,
+        icon: "/images/what-we-test/DNA Health.png",
         benefits: [
             {
                 title: "Methylation Status",

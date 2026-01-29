@@ -4,30 +4,71 @@ import { Button, SectionHeading, Accordion } from '../components/UI';
 import { Icons } from '../components/Icons';
 import { Link } from 'react-router-dom';
 
-const TREATMENT_CATEGORIES = [
+const ADDITIONAL_CONCERNS = [
     {
-        title: "Weight Loss + Metabolism",
-        description: "Science-backed protocols to reset your metabolic baseline.",
-        icon: <Icons.Activity />,
-        items: ["GLP-1 (Semaglutide / Tirzepatide)", "Metabolic Reset", "LDN (Low Dose Naltrexone)"]
+        title: "Stress & Energy",
+        symptom: "You feel constantly drained, overwhelmed, or running on empty. Even after rest, your energy doesn't fully return.",
+        explanation: "That's often a sign your body is under prolonged stress. When stress responses stay switched on, energy production and recovery suffer.",
+        approach: "We use lab data to understand how your body responds to stress and produces energy, then correct the drivers keeping your system overstretched.",
+        mayInclude: [
+            "Stress-response regulation support",
+            "Energy metabolism optimization",
+            "Targeted nutrition and lifestyle strategies"
+        ],
+        result: "More consistent energy and a greater sense of resilience throughout the day.",
+        image: "/images/concerns/stress_energy.png"
     },
     {
-        title: "Hormone Optimization",
-        description: "Restore balance to your body’s chemical messengers.",
-        icon: <Icons.Zap />,
-        items: ["TRT (Testosterone Replacement)", "BHRT (Bioidentical Hormones)", "Thyroid Optimization"]
+        title: "Sleep Quality",
+        symptom: "You struggle to fall asleep, stay asleep, or wake up feeling rested. Nights pass, but recovery doesn't happen.",
+        explanation: "That's often a sign your internal rhythms are out of sync. Hormones, stress signals, and metabolism all play a role in sleep quality.",
+        approach: "We use lab data to understand what's disrupting sleep regulation, then address the underlying drivers affecting rest and recovery.",
+        mayInclude: [
+            "Sleep-supportive hormone balance",
+            "Stress and recovery optimization",
+            "Lifestyle and timing adjustments"
+        ],
+        result: "Deeper, more restorative sleep and better recovery overnight.",
+        image: "/images/concerns/sleep_quality.png"
     },
     {
-        title: "Gut Health & Peptide Therapy",
-        description: "Heal your gut and accelerate repair with advanced peptides.",
-        icon: <Icons.ShieldCheck />,
-        items: ["BPC-157", "Gut Repair Protocols", "Immune Support"]
+        title: "Skin Aging",
+        symptom: "Your skin looks tired, dull, or older than you feel. Topical products help briefly, but changes don't last.",
+        explanation: "That's often a sign aging is happening beneath the surface. Skin reflects nutrient status, inflammation, and cellular health inside the body.",
+        approach: "We use lab data to understand internal drivers of skin aging, then support cellular repair and balance from within.",
+        mayInclude: [
+            "Nutrient and antioxidant support",
+            "Inflammation reduction strategies",
+            "Cellular health optimization"
+        ],
+        result: "Healthier-looking skin that reflects improved internal balance.",
+        image: "/images/concerns/skin_aging.png"
     },
     {
-        title: "Longevity & Cellular Health",
-        description: "Advanced therapies to slow biological aging at the source.",
-        icon: <Icons.Dna />,
-        items: ["Rapamycin", "NAD+ Therapy", "Senolytics"]
+        title: "Inflammation",
+        symptom: "You're told your inflammation markers are elevated, or you feel sore, puffy, or slow to recover more often than before.",
+        explanation: "That's often a sign the body is under constant low-grade stress. Inflammation can be driven by metabolic imbalance, gut issues, or nutrient deficiencies.",
+        approach: "We use lab data to identify sources of inflammation, then address the drivers contributing to ongoing stress in the body.",
+        mayInclude: [
+            "Inflammation reduction support",
+            "Gut or metabolic optimization",
+            "Targeted nutritional strategies"
+        ],
+        result: "Improved recovery and a calmer internal environment.",
+        image: "/images/concerns/inflammation.png"
+    },
+    {
+        title: "Detox & Liver Health",
+        symptom: "You feel sluggish, heavy, or \"toxic,\" even without clear symptoms. Recovery feels slow, and energy doesn't rebound easily.",
+        explanation: "That's often a sign the liver is under strain. The liver plays a central role in detoxification, metabolism, and hormone processing.",
+        approach: "We use lab data to assess liver function and detox capacity, then support pathways that help the body process and clear waste efficiently.",
+        mayInclude: [
+            "Liver support strategies",
+            "Detox pathway optimization",
+            "Metabolic and nutritional support"
+        ],
+        result: "Better recovery, improved clarity, and a body that feels less burdened.",
+        image: "/images/concerns/detox_liver.png"
     }
 ];
 
@@ -61,31 +102,43 @@ const Hero = () => (
     </section>
 );
 
-const TreatmentsGrid = () => (
+const AdditionalConcerns = () => (
     <section className="py-24 bg-white px-6">
         <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-                <SectionHeading>Targeted Therapies</SectionHeading>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">Based on your unique lab results, you may qualify for one or more of these clinical protocols.</p>
+                <SectionHeading>Additional Concerns</SectionHeading>
+                <p className="text-gray-600 text-lg max-w-2xl mx-auto">Based on your unique lab results, we address these common health concerns with precision protocols.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {TREATMENT_CATEGORIES.map((cat, i) => (
-                    <div key={i} className="bg-cream-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-all duration-300 group">
-                        <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-teal-700 mb-6 group-hover:scale-110 transition-transform">
-                            {React.cloneElement(cat.icon as React.ReactElement<any>, { size: 24 })}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {ADDITIONAL_CONCERNS.map((concern, i) => (
+                    <div key={i} className="bg-cream-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                        {/* Image */}
+                        <div className="relative aspect-[16/9] overflow-hidden">
+                            <img
+                                src={concern.image}
+                                alt={concern.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
                         </div>
-                        <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{cat.title}</h3>
-                        <p className="text-gray-500 text-sm mb-6 min-h-[40px]">{cat.description}</p>
 
-                        <ul className="space-y-3">
-                            {cat.items.map((item, idx) => (
-                                <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 font-medium">
-                                    <Icons.Check className="w-4 h-4 text-teal-600 mt-0.5 shrink-0" />
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        {/* Content */}
+                        <div className="p-6">
+                            <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{concern.title}</h3>
+
+                            {/* Approach */}
+                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                {concern.approach}
+                            </p>
+
+                            {/* Result */}
+                            <div className="bg-teal-50/50 rounded-lg p-3 border border-teal-100">
+                                <p className="text-teal-900 font-medium text-sm">
+                                    {concern.result}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -312,7 +365,7 @@ const Treatment = () => {
         <main>
             <Hero />
             <GuidedPathTimeline />
-            <TreatmentsGrid />
+            <AdditionalConcerns />
             <WhyThisMatters />
             <FaqSection />
         </main>

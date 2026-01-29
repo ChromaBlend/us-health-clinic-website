@@ -181,9 +181,11 @@ const BiomarkerList = () => {
                             <div key={cat.id} id={cat.id} className="scroll-mt-32">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-orange-100/50 text-orange-600 flex items-center justify-center shrink-0">
-                                            {React.cloneElement(cat.icon as React.ReactElement<any>, { size: 20, strokeWidth: 2 })}
-                                        </div>
+                                        <img
+                                            src={cat.icon}
+                                            alt={`${cat.title} icon`}
+                                            className="w-10 h-10 object-contain shrink-0"
+                                        />
                                         <h3 className="text-xl font-medium text-gray-900">{cat.title} Biomarkers</h3>
                                     </div>
                                     <Link to={`/panel/${cat.id}`} className="text-teal-700 hover:text-teal-900 text-sm font-medium flex items-center gap-1 group/link">
