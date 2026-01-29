@@ -6,6 +6,52 @@ import { Button, SectionHeading, SectionSub, Accordion } from '../components/UI'
 import { Icons } from '../components/Icons';
 import { FadeIn, StaggerContainer, StaggerItem, ScaleIn } from '../components/Animations';
 
+const Marquee = ({ text }: { text: string }) => (
+    <div className="bg-teal-900 border-y border-teal-800 overflow-hidden py-4 relative z-20">
+        <div className="animate-marquee whitespace-nowrap flex gap-8 text-teal-200/40 font-serif text-lg tracking-widest uppercase items-center">
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+        </div>
+        <style>
+            {`
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .animate-marquee {
+                animation: marquee 40s linear infinite;
+            }
+            `}
+        </style>
+    </div>
+);
+
+const BentoCard = ({ children, className = "", title, subtitle }: { children?: React.ReactNode, className?: string, title?: string, subtitle?: string }) => (
+    <div className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:bg-white/10 transition-colors duration-500 flex flex-col relative overflow-hidden h-full ${className}`}>
+        {/* Content Slot */}
+        {children}
+
+        {(title || subtitle) && (
+            <div className="relative z-20 px-8 pb-8 mt-auto">
+                <div className="pt-4 border-t border-white/5">
+                    {subtitle && <p className="text-teal-400 text-[10px] tracking-[0.2em] uppercase mb-1">{subtitle}</p>}
+                    {title && <h3 className="text-xl md:text-2xl font-medium text-white font-serif leading-tight">{title}</h3>}
+                </div>
+            </div>
+        )}
+    </div>
+);
+
 const Subscribe = () => {
 
 
@@ -84,103 +130,118 @@ const Subscribe = () => {
                 </div>
             </section>
 
-            {/* --- Benefits Section --- */}
-            <section id="benefits" className="py-24 bg-white relative">
-                <div className="max-w-7xl mx-auto px-6">
-                    <FadeIn className="text-center mb-20">
-                        <SectionHeading>What you get</SectionHeading>
-                        <SectionSub>A complete ecosystem for your health.</SectionSub>
+            {/* --- Marquee --- */}
+            <Marquee text="Proactive Care • Deep Diagnostics • Doctor Led • Biomarker Based • Unlimited Support • Personalized Plan •" />
+
+            {/* --- What You Get (Bento Grid) --- */}
+            <section id="benefits" className="bg-[#051111] py-32 px-6 relative overflow-hidden">
+                {/* Background Decor */}
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <FadeIn className="mb-24 text-center">
+                        <SectionHeading className="!text-white mb-6">The <span className="text-teal-400 italic">Ultimate</span> Health Stack.</SectionHeading>
+                        <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+                            Everything you need to optimize your biology, integrated into one seamless experience.
+                        </p>
                     </FadeIn>
 
-                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-[420px] gap-6">
 
-                        {/* 1. Precision Diagnostics (Hero - Large) */}
-                        <StaggerItem className="md:col-span-2 md:row-span-2 group p-8 md:p-12 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100 relative overflow-hidden flex flex-col justify-between">
-                            {/* Decoration */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-100/30 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-700 pointer-events-none group-hover:bg-teal-200/40"></div>
+                        {/* 1. Precision Diagnostics (Large Card) */}
+                        <BentoCard className="md:col-span-8 group" title="Precision Diagnostics" subtitle="The Foundation">
+                            <div className="absolute inset-0 z-0">
+                                <div className="absolute inset-0 bg-[#0a2020] opacity-50"></div>
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579165466541-74e2beeac73e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-1000 grayscale"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#051111] via-[#051111]/20 to-transparent"></div>
+                            </div>
 
-                            <div className="relative z-10 sm:max-w-md">
-                                <div className="w-16 h-16 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-8 group-hover:scale-110 transition-transform duration-300">
+                            <div className="relative z-10 p-8 flex flex-col justify-center h-full">
+                                <div className="w-16 h-16 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 mb-6 backdrop-blur-md">
                                     <Icons.Activity size={32} />
                                 </div>
-                                <h3 className="text-3xl md:text-4xl font-serif text-gray-900 mb-6 leading-tight">Precision Diagnostics</h3>
-                                <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                                    100+ biomarkers testing heart, hormones, metabolic function, and nutrients. We look deep where others just skim the surface.
+                                <p className="text-gray-300 max-w-lg mb-8 text-base md:text-xl font-light leading-relaxed">
+                                    100+ biomarkers testing heart, hormones, metabolic function, and nutrients. Comprehensive data that drives every decision.
                                 </p>
+                                <div className="flex gap-3 flex-wrap">
+                                    <span className="px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Hormones</span>
+                                    <span className="px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Metabolic</span>
+                                    <span className="px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Nutrients</span>
+                                </div>
                             </div>
-
-                            <div className="mt-8 flex gap-3 overflow-hidden opacity-40">
-                                {/* Visual fake graph lines - Darkened for light mode */}
-                                <div className="h-16 w-2 bg-teal-200 rounded-full animate-pulse" style={{ animationDelay: '0s' }}></div>
-                                <div className="h-24 w-2 bg-teal-300 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                                <div className="h-12 w-2 bg-teal-200 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                                <div className="h-32 w-2 bg-teal-400 rounded-full animate-pulse" style={{ animationDelay: '0.1s' }}></div>
-                                <div className="h-20 w-2 bg-teal-300 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
-                            </div>
-                        </StaggerItem>
+                        </BentoCard>
 
                         {/* 2. Physician Review */}
-                        <StaggerItem className="md:col-span-1 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
-                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Icons.User size={28} />
+                        <BentoCard className="md:col-span-4 bg-white/5" title="Doctor Review" subtitle="Clinical Expert">
+                            <div className="flex-1 flex flex-col justify-center p-8">
+                                <div className="w-14 h-14 rounded-2xl bg-teal-500/20 flex items-center justify-center text-teal-400 mb-6">
+                                    <Icons.User size={28} />
+                                </div>
+                                <p className="text-gray-400 text-sm leading-relaxed font-light mb-4">
+                                    Detailed breakdown of your results by a functional medicine doctor. We explain the "why" behind your data.
+                                </p>
                             </div>
-                            <h3 className="text-xl font-serif text-gray-900 mb-3">Physician Review</h3>
-                            <p className="text-gray-600 leading-relaxed text-sm">
-                                Detailed breakdown of your results by a functional medicine doctor.
-                            </p>
-                        </StaggerItem>
+                        </BentoCard>
 
                         {/* 3. Personalized Plan */}
-                        <StaggerItem className="md:col-span-1 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
-                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Icons.Zap size={28} />
+                        <BentoCard className="md:col-span-4 bg-teal-900/10 border-teal-500/20" title="Your Roadmap" subtitle="Personalized Plan">
+                            <div className="flex-1 flex flex-col justify-center items-center text-center p-8">
+                                <Icons.Zap size={40} className="text-teal-400 mb-6 animate-pulse" />
+                                <h4 className="text-white text-2xl font-serif mb-2">Custom Action</h4>
+                                <p className="text-gray-500 text-xs uppercase tracking-widest font-bold">Supplemental & Lifestyle Advisors</p>
                             </div>
-                            <h3 className="text-xl font-serif text-gray-900 mb-3">Personalized Plan</h3>
-                            <p className="text-gray-600 leading-relaxed text-sm">
-                                Custom protocols for nutrition, supplements, and lifestyle.
-                            </p>
-                        </StaggerItem>
+                        </BentoCard>
 
-                        {/* 4. Ongoing Support - Wide */}
-                        <StaggerItem className="md:col-span-2 lg:col-span-2 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
-                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Icons.MessageCircle size={28} />
+                        {/* 4. Ongoing Support */}
+                        <BentoCard className="md:col-span-4 bg-white/5" title="Direct Access" subtitle="Ongoing Support">
+                            <div className="flex-1 flex flex-col justify-center p-8">
+                                <div className="space-y-4">
+                                    <div className="flex gap-4 items-center">
+                                        <div className="w-10 h-10 rounded-full bg-teal-500/10 flex items-center justify-center text-teal-400">
+                                            <Icons.MessageCircle size={20} />
+                                        </div>
+                                        <div>
+                                            <h5 className="text-white text-sm font-bold">Care Team Chat</h5>
+                                            <p className="text-gray-500 text-xs">Unlimited messaging</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4 items-center">
+                                        <div className="w-10 h-10 rounded-full bg-teal-500/10 flex items-center justify-center text-teal-400">
+                                            <Icons.Calendar size={20} />
+                                        </div>
+                                        <div>
+                                            <h5 className="text-white text-sm font-bold">Regular Check-ins</h5>
+                                            <p className="text-gray-500 text-xs">Stay on track</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-serif text-gray-900 mb-3">Ongoing Support</h3>
-                            <p className="text-gray-600 leading-relaxed text-sm">
-                                Direct messaging with your care team for adjustments and questions.
-                            </p>
-                        </StaggerItem>
+                        </BentoCard>
 
                         {/* 5. Progress Tracking */}
-                        <StaggerItem className="md:col-span-1 lg:col-span-2 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
-                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Icons.TrendingUp size={28} />
+                        <BentoCard className="md:col-span-4 group overflow-hidden" title="Track Progress" subtitle="Data Over Time">
+                            <div className="absolute inset-0 z-0">
+                                <div className="absolute inset-0 bg-[#051111]/60 z-10"></div>
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-1000 grayscale"></div>
                             </div>
-                            <h3 className="text-xl font-serif text-gray-900 mb-3">Progress Tracking</h3>
-                            <p className="text-gray-600 leading-relaxed text-sm">
-                                Monitor your biological age and key markers over time.
-                            </p>
-                        </StaggerItem>
-
-                        {/* 6. Member Perks */}
-                        <StaggerItem className="md:col-span-1 lg:col-span-2 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100 flex flex-col justify-center">
-                            <div className="flex flex-col md:flex-row items-center gap-6 justify-center text-center md:text-left">
-                                <div className="w-16 h-16 shrink-0 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-0 group-hover:scale-110 transition-transform duration-300">
-                                    <Icons.ShieldCheck size={32} />
+                            <div className="relative z-20 flex-1 flex flex-col justify-center p-8">
+                                <div className="flex items-end gap-2 h-24 mb-6 opacity-80">
+                                    <div className="w-4 bg-teal-500/20 h-[40%] rounded-t-sm"></div>
+                                    <div className="w-4 bg-teal-500/40 h-[60%] rounded-t-sm"></div>
+                                    <div className="w-4 bg-teal-500/60 h-[50%] rounded-t-sm"></div>
+                                    <div className="w-4 bg-teal-500/80 h-[80%] rounded-t-sm"></div>
+                                    <div className="w-4 bg-teal-500 h-[70%] rounded-t-sm"></div>
                                 </div>
-                                <div>
-                                    <h3 className="text-2xl font-serif text-gray-900 mb-2">Member Perks</h3>
-                                    <p className="text-gray-600 leading-relaxed max-w-md">
-                                        Exclusive discounts on supplements, additional testing, and partner brands.
-                                    </p>
-                                </div>
+                                <p className="text-gray-300 text-sm font-light">Watch your biological age reverse as you optimize.</p>
                             </div>
-                        </StaggerItem>
+                        </BentoCard>
 
-                    </StaggerContainer>
+                    </div>
                 </div>
             </section>
+
+            {/* --- Transition Cap --- */}
+            <div className="bg-white h-24 rounded-t-[4rem] relative z-20 -mt-24"></div>
 
             {/* --- Pricing Section --- */}
             <Membership />

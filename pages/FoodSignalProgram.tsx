@@ -186,7 +186,7 @@ const FoodSignalProgram = () => {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <FadeIn direction="right" className="relative order-2 lg:order-1">
                             <div className="absolute inset-0 bg-[#0D5D56]/5 rounded-[2.5rem] transform rotate-3"></div>
-                            <img src="/images/food-signal-program/snap-and-send.png" alt="Phone texting food photo" className="relative rounded-[2.5rem] shadow-2xl w-full" />
+                            <img src="/images/food-signal-program/food-signal-step-1.png" alt="Phone texting food photo" className="relative rounded-[2.5rem] shadow-2xl w-full" />
                         </FadeIn>
                         <FadeIn direction="left" className="space-y-6 order-1 lg:order-2">
                             <span className="bg-white text-[#0D5D56] border border-[#0D5D56]/20 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">Step 01</span>
@@ -233,7 +233,7 @@ const FoodSignalProgram = () => {
                         </FadeIn>
                         <FadeIn direction="left" className="relative order-2 w-full aspect-square lg:aspect-auto lg:h-full min-h-[400px]">
                             <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-2xl">
-                                <img src="/images/food-signal-program/expert-feedback.png" alt="Dietitian feedback message" className="w-full h-full object-cover" />
+                                <img src="/images/food-signal-program/food-signal-step-2.png" alt="Dietitian feedback message" className="w-full h-full object-cover" />
                             </div>
                         </FadeIn>
                     </div>
@@ -242,7 +242,7 @@ const FoodSignalProgram = () => {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <FadeIn direction="right" className="relative order-2 lg:order-1">
                             <div className="absolute inset-0 bg-[#0D5D56]/5 rounded-[2.5rem] transform rotate-3"></div>
-                            <img src="/images/food-signal-program/community-call.png" alt="Group coaching call" className="relative rounded-[2.5rem] shadow-2xl w-full" />
+                            <img src="/images/food-signal-program/food-signal-step-3.png" alt="Group coaching call" className="relative rounded-[2.5rem] shadow-2xl w-full" />
                         </FadeIn>
                         <FadeIn direction="left" className="space-y-6 order-1 lg:order-2">
                             <span className="bg-white text-[#0D5D56] border border-[#0D5D56]/20 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">Step 03</span>

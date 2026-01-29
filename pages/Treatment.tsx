@@ -187,7 +187,7 @@ const GUIDED_PATHS = [
         approach: `We stop fighting your skin and start supporting your system. We focus on hormonal harmony and detoxification. By clearing the internal pathways that eliminate toxins, we stop them from pushing out through your skin. Our plan calms the internal fire so the external redness fades away.`,
         outcome: 'Clear skin that reflects a balanced body.',
         cta: 'Start Protocol',
-        image: "/images/treatments/clear_skin.png"
+        image: "/images/treatments/treatment-clear-skin.png"
     },
     {
         id: 'metabolic-reset',
@@ -198,7 +198,7 @@ const GUIDED_PATHS = [
         approach: `We stop the "starvation" cycle. We test your metabolic markers to understand why your body is holding onto weight. Our treatment combines precise nutrient therapy to curb cravings with lifestyle medication protocols that switch your body from "storing fat" to "burning energy."`,
         outcome: 'Sustainable weight loss without the struggle.',
         cta: 'Start Protocol',
-        image: "/images/treatments/metabolic_reset.png"
+        image: "/images/treatments/treatment-metabolic.png"
     },
     {
         id: 'gut-health',
@@ -209,7 +209,7 @@ const GUIDED_PATHS = [
         approach: `We treat the root cause, not just the symptoms. We use advanced comprehensive stool testing to identify pathogens, parasites, and imbalances. We then repair the gut lining and rebalance your microbiome with targeted probiotics and nutritional protocols.`,
         outcome: 'Digestive peace and renewed energy.',
         cta: 'Start Protocol',
-        image: "/images/treatments/gut_health.png"
+        image: "/images/treatments/treatment-gut-health.png"
     },
     {
         id: 'cellular-radiance',
@@ -220,7 +220,7 @@ const GUIDED_PATHS = [
         approach: `We provide the specific building blocks your body needs to repair tissue and hydrate from within, paired with lifestyle adjustments that protect your collagen bank. We target oxidative stress and collagen decline at the source.`,
         outcome: 'The kind of glow that makeup can\'t mimic.',
         cta: 'Start Protocol',
-        image: "/images/treatments/cellular_radiance.png"
+        image: "/images/treatments/treatment-cellular.png"
     },
     {
         id: 'blood-sugar',
@@ -231,7 +231,7 @@ const GUIDED_PATHS = [
         approach: `Through advanced glucose and insulin markers, we assess how your body responds to food, stress, and daily rhythms, identifying the patterns that disrupt stable blood sugar control.`,
         outcome: 'More consistent energy, fewer crashes, and improved metabolic resilience.',
         cta: 'Start Protocol',
-        image: "/images/treatments/blood_sugar.png"
+        image: "/images/treatments/treatment-blood-sugar.png"
     },
     {
         id: 'stress-cortisol',
@@ -242,7 +242,7 @@ const GUIDED_PATHS = [
         approach: `We analyze cortisol patterns and related hormonal markers to understand how stress is impacting your nervous system, sleep, and recovery — then address the root regulatory drivers.`,
         outcome: 'Improved stress tolerance, deeper recovery, and a calmer, more balanced system.',
         cta: 'Start Protocol',
-        image: "/images/treatments/stress_cortisol.png"
+        image: "/images/treatments/treatment-stress.png"
     },
     {
         id: 'hormones',
