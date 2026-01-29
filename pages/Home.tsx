@@ -2,7 +2,6 @@
 import React from 'react';
 import { Icons } from '../components/Icons';
 import { Button, SectionHeading, SectionSub, Accordion } from '../components/UI';
-import { Testimonial } from '../types';
 import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { PathToHealth } from '../components/PathToHealth';
@@ -166,31 +165,45 @@ const Discovery = () => (
 
 
 
-const Testimonials = () => {
-  const reviews: Testimonial[] = [
-    { name: "Ainsley J.", age: 42, image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop", quote: "I felt tired for years, but USHC was the first to dig deeper. They connected my mood and fatigue, finally giving me the personalized biological answers." },
-    { name: "Imanix S.", age: 45, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop", quote: "They didn't just blame me for my weight. USHC provided an optimized supplement protocol based on my unique biology." },
-    { name: "Dorion B.", age: 51, image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop", quote: "My doctor listened and supported me—they didn't dismiss my concerns. The personalized plan evolves as my body changes." }
-  ];
-
+const Authenticity = () => {
   return (
     <section className="py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6">
-        <FadeIn><SectionHeading>You are not alone in this.</SectionHeading></FadeIn>
+        <FadeIn className="text-center mb-16">
+          <SectionHeading>Evidence over endorsements.</SectionHeading>
+          <p className="text-xl text-gray-500 mt-6 font-light max-w-2xl mx-auto">
+            We are a new company launching a new standard of care. We don't believe in manufactured social proof—we believe in biological truth.
+          </p>
+        </FadeIn>
+
         <StaggerContainer className="grid md:grid-cols-3 gap-8 mt-20">
-          {reviews.map((r, i) => (
-            <StaggerItem key={i} className="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-teal-50">
-              <div className="flex items-center gap-4 mb-8">
-                <img src={r.image} alt={r.name} className="w-14 h-14 rounded-full object-cover ring-4 ring-gray-50" />
-                <div>
-                  <span className="font-bold text-gray-900 block">{r.name}</span>
-                  <span className="text-sm text-gray-500">Age {r.age}</span>
-                </div>
+          {[
+            {
+              title: "The Pioneer Phase",
+              desc: "We are currently in our early-access launch. Join us not because thousands already have, but because you want to be at the forefront of the longevity revolution.",
+              icon: <Icons.Zap className="w-10 h-10 text-teal-700" />,
+              label: "Join the Founders"
+            },
+            {
+              title: "Radical Transparency",
+              desc: "You won't find paid testimonials or 'influencer' endorsements here. We let the clinical data and your personal biomarkers speak for themselves.",
+              icon: <Icons.ShieldCheck className="w-10 h-10 text-teal-700" />,
+              label: "Truth in Data"
+            },
+            {
+              title: "Clinical Integrity",
+              desc: "Every protocol we build is rooted in peer-reviewed science, not marketing trends. Your health is an engineering project, not a testimonial.",
+              icon: <Icons.Dna className="w-10 h-10 text-teal-700" />,
+              label: "Science-Backed"
+            }
+          ].map((item, i) => (
+            <StaggerItem key={i} className="bg-white p-12 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 border border-teal-50/50 flex flex-col items-center text-center">
+              <div className="mb-8 p-4 bg-teal-50 rounded-2xl">
+                {item.icon}
               </div>
-              <p className="text-gray-600 mb-8 italic text-lg leading-relaxed">"{r.quote}"</p>
-              <div className="flex text-yellow-400 gap-1">
-                {[...Array(5)].map((_, j) => <Icons.Heart key={j} size={16} fill="currentColor" className={j < 5 ? "text-teal-700" : "text-gray-300"} />)}
-              </div>
+              <h3 className="text-2xl font-serif text-gray-900 mb-4">{item.title}</h3>
+              <p className="text-gray-600 mb-8 font-light leading-relaxed">{item.desc}</p>
+              <span className="text-xs font-bold tracking-widest text-teal-700 uppercase mt-auto">{item.label}</span>
             </StaggerItem>
           ))}
         </StaggerContainer>
@@ -274,7 +287,7 @@ const Home = () => {
       <Biomarkers />
       <Discovery />
       <PathToHealth />
-      <Testimonials />
+      <Authenticity />
       <Partners />
       <Membership />
       <WhyMembership />

@@ -213,6 +213,102 @@ const BiomarkerList = () => {
     );
 };
 
+const ClinicalValue = () => {
+    const panels = [
+        { title: "Metabolic & Diabetes Panel", price: "$450", status: "INCLUDED" },
+        { title: "Comprehensive Hormone Panel", price: "$550", status: "INCLUDED" },
+        { title: "Cardiovascular Lipid Panel", price: "$300", status: "INCLUDED" },
+        { title: "Nutrient & Vitamin Check", price: "$250", status: "INCLUDED" },
+        { title: "Liver & Inflammation Panel", price: "$400", status: "INCLUDED" },
+        { title: "Vision Board Analysis", price: "$500", status: "COMING SOON", isComingSoon: true }
+    ];
+
+    return (
+        <section className="py-24 bg-white">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="bg-teal-900 rounded-[3rem] p-8 md:p-16 text-center overflow-hidden relative">
+                    {/* Background patterns */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-teal-800/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-700/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+                    <div className="relative z-10">
+                        <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+                            $2,500+ of Clinical <br className="hidden md:block" />
+                            <span className="italic text-teal-300">Testing. Included.</span>
+                        </h2>
+                        <p className="text-teal-100/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                            Your Annual Membership includes the full 100+ Biomarker Audit. <br />
+                            No hidden lab fees. No insurance headaches. Just data.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {panels.map((panel, idx) => (
+                                <div key={idx} className="bg-white rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between text-left group hover:shadow-xl transition-all duration-300">
+                                    <div className="flex items-center gap-4 mb-4 md:mb-0">
+                                        <div className="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center shrink-0">
+                                            <Icons.Check className="text-teal-600" size={18} />
+                                        </div>
+                                        <span className="text-gray-900 font-medium leading-tight">{panel.title}</span>
+                                    </div>
+                                    <div className="text-right flex flex-col items-center md:items-end">
+                                        <span className="text-gray-300 line-through text-sm mb-1">{panel.price}</span>
+                                        <span className={`text-[10px] font-bold tracking-widest uppercase ${panel.isComingSoon ? 'text-orange-500' : 'text-gray-900'}`}>
+                                            {panel.status}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+const FAQ = () => {
+    const faqs = [
+        {
+            q: "Does USHC accept health insurance?",
+            a: "Not at this time, but we're working on it. USHC may be eligible for reimbursement through your HSA/FSA. See FAQ below for details. We see USHC like a gym membership for those committed to prevention and performance. USHC is a bridge between wellness and healthcare. Health insurance traditionally focuses on reactive care whereas, at USHC, we believe it's never too early to start looking out for your long-term health."
+        },
+        {
+            q: "Why can't I order these tests at a regular doctor?",
+            a: "Standard clinical care is often constrained by insurance dictates and diagnostic codes. Most doctors can only order tests if you already have symptoms. USHC operates on a self-pay model that allows us to test over 100 biomarkers for proactive optimization, regardless of whether you have traditional symptoms."
+        },
+        {
+            q: "How is this different than my annual physical?",
+            a: "A standard physical typically looks at 5-10 generic markers to catch existing disease. Our Biomarker Audit looks at 100+ markers to build a high-resolution map of your performance, metabolism, and longevity potential, allowing for optimization before disease occurs."
+        },
+        {
+            q: "Does USHC replace my primary care provider?",
+            a: "No. USHC is a specialized performance clinic. We work alongside your primary care provider by giving you deeper data and insights. We recommend sharing your USHC reports with your regular doctor to provide them with a more complete picture of your health."
+        },
+        {
+            q: "Does USHC accept HSA/FSA?",
+            a: "Yes. In many cases, our services and lab tests are eligible for HSA/FSA reimbursement. We provide the necessary itemized receipts and documentation for you to submit to your provider."
+        }
+    ];
+
+    return (
+        <section className="py-24 bg-cream">
+            <div className="max-w-4xl mx-auto px-6">
+                <h2 className="text-4xl md:text-5xl font-serif text-center text-gray-900 mb-16">FAQs</h2>
+                <div className="space-y-4">
+                    {faqs.map((faq, i) => (
+                        <div key={i} className="bg-white rounded-3xl px-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <Accordion
+                                title={faq.q}
+                                content={faq.a}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
 const CTA = () => (
     <section className="py-32 bg-teal-900 text-white relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -236,7 +332,9 @@ const WhatWeTest = () => {
         <main>
             <Hero />
             <WhyItMatters />
+            <ClinicalValue />
             <BiomarkerList />
+            <FAQ />
             <CTA />
         </main>
     );

@@ -6,11 +6,6 @@ export interface PanelItem {
     detail: string;
 }
 
-export interface Testimonial {
-    quote: string;
-    author: string;
-    role: string;
-}
 
 export interface FAQ {
     question: string;
@@ -31,7 +26,6 @@ export interface PanelData {
         icon?: React.ReactNode;
     }[];
     biomarkers: PanelItem[];
-    testimonials: Testimonial[];
     faqs: FAQ[];
 }
 
@@ -82,7 +76,6 @@ export const panels: PanelData[] = [
             { name: "Reactive Lymphocytes (Immune Stimulation)", detail: "These rise when the immune system is provoked. This reveals recovery or ongoing stimulation." },
             { name: "Total Bilirubin (Detox & Red Cell Turnover)", detail: "Waste clearance reflects liver efficiency. This shows smooth detox or congestion." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -139,9 +132,6 @@ export const panels: PanelData[] = [
             { name: "ADMA (Endothelial Stress)", detail: "Blood vessels rely on nitric oxide. This shows whether flow is supported or impaired." },
             { name: "SDMA (Vascular Function)", detail: "Vascular strain shows early. This reveals whether vessels are adapting or stiffening." }
         ],
-        testimonials: [
-            { quote: "I thought my heart health was fine until I saw my ApoB levels. This panel literally saved my life.", author: "James T.", role: "Member since 2023" }
-        ],
         faqs: []
     },
     {
@@ -181,7 +171,6 @@ export const panels: PanelData[] = [
             { name: "Indirect / Direct Bilirubin Ratio (Processing Balance)", detail: "Ratios reveal dysfunction. This shows whether bilirubin handling is efficient or impaired." },
             { name: "Bilirubin / Albumin Ratio (Synthetic Reserve)", detail: "Reserve capacity matters. This reveals whether liver support is adequate or thinning." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -217,7 +206,6 @@ export const panels: PanelData[] = [
             { name: "CO2 / Bicarbonate (pH Control)", detail: "Acid balance affects everything. This reveals whether buffering is strong or weakening." },
             { name: "Calcium (Mineral Regulation)", detail: "Balance protects bones and nerves. This shows whether regulation is precise or disrupted." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -264,9 +252,6 @@ export const panels: PanelData[] = [
             { name: "Glucose, Plasma (Immediate Sugar Control)", detail: "Blood sugar spikes create hidden damage. This shows stability or daily metabolic stress." },
             { name: "AMH (Ovarian Reserve)", detail: "Reserve declines predictably. This shows where fertility capacity stands." }
         ],
-        testimonials: [
-            { quote: "My fatigue wasn't just 'working too hard'. It was low DHEA-S. Addressing it gave me my life back.", author: "Elena K.", role: "Architect" }
-        ],
         faqs: []
     },
     {
@@ -304,9 +289,6 @@ export const panels: PanelData[] = [
             { name: "Cardio IQ Insulin Resistance (Metabolic Drift)", detail: "Insulin resistance builds silently. This shows whether your metabolism stays flexible or starts breaking down." },
             { name: "Adiponectin (Metabolic Protection)", detail: "Protection fades with dysfunction. This reveals whether insulin sensitivity is preserved or lost." },
             { name: "Fructosamine (Short-Term Sugar Control)", detail: "Recent patterns matter. This shows whether control is improving or worsening." }
-        ],
-        testimonials: [
-            { quote: "Understanding my fasting insulin changed how I eat entirely. I have more energy now than I did in my 20s.", author: "Michael R.", role: "Entrepreneur" }
         ],
         faqs: []
     },
@@ -352,7 +334,6 @@ export const panels: PanelData[] = [
             { name: "Vitamin E (Cell Protection)", detail: "Membranes need defense. This shows whether protection is sufficient — or lacking." },
             { name: "Vitamin B12 (Neurologic Fuel)", detail: "Nerves and energy depend on it. This shows whether signaling is sharp or impaired." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -387,7 +368,6 @@ export const panels: PanelData[] = [
             { name: "Platelet-to-Lymphocyte Ratio (Inflammatory Stress)", detail: "Clotting and immunity intersect. This reveals whether balance is healthy or strained." },
             { name: "SIRI (Systemic Inflammation)", detail: "Multi-cell signals matter. This shows whether inflammation is controlled or widespread." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -421,7 +401,6 @@ export const panels: PanelData[] = [
             { name: "Thyroglobulin Antibodies (Thyroid Integrity)", detail: "Damage leaves markers. This reveals whether the thyroid is protected or targeted." },
             { name: "Triiodothyronine (T3), Free (Metabolic Drive)", detail: "Metabolism sets your daily energy. This shows whether your system is energized or running slow." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -453,7 +432,6 @@ export const panels: PanelData[] = [
             { name: "Iron Saturation (Iron Utilization)", detail: "Stored iron must be usable. This shows availability or blockage." },
             { name: "Iron, Total (Energy Mineral Status)", detail: "Iron powers oxygen delivery. This reveals sufficiency or fatigue risk." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -501,7 +479,6 @@ export const panels: PanelData[] = [
             { name: "ANA (Antinuclear Antibody) (Systemic Autoimmunity)", detail: "Autoimmune activity often begins broadly. This shows immune balance or self-directed attack." },
             { name: "Celiac Disease Screening Panel (Gluten Autoimmunity)", detail: "Hidden gluten reactions damage silently. This reveals tolerance — or immune injury." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -529,7 +506,6 @@ export const panels: PanelData[] = [
         biomarkers: [
             { name: "IGF-1 (Growth & Repair Signal)", detail: "Repair capacity declines with age. This shows regenerative strength or slowdown." }
         ],
-        testimonials: [],
         faqs: []
     },
     {
@@ -564,7 +540,6 @@ export const panels: PanelData[] = [
             { name: "Methylmalonic Acid (MMA) (Functional B12 Status)", detail: "B12 problems hide behind normal levels. This shows whether B12 is working or functionally deficient." },
             { name: "Vitamin B12 (Cobalamin) (Cellular Energy)", detail: "Low B12 drains energy quietly. This shows whether your cells are supported or running empty." }
         ],
-        testimonials: [],
         faqs: []
     }
 ];

@@ -8,26 +8,6 @@ import { FadeIn, StaggerContainer, StaggerItem, ScaleIn } from '../components/An
 
 const Subscribe = () => {
 
-    const testimonials = [
-        {
-            quote: "I didn’t realize how foggy I felt until I saw my numbers. 3 months later, I’m clearer, sharper, and actually sleeping.",
-            author: "Sarah J.",
-            role: "Marketing Director",
-            rating: 5
-        },
-        {
-            quote: "This isn't just a lab test. It's a roadmap. The insights were specific, actionable, and weirdly accurate.",
-            author: "Michael T.",
-            role: "Architect",
-            rating: 5
-        },
-        {
-            quote: "Finally, healthcare that feels like it’s actually about *me*. The doctor took 45 minutes just to explain my thyroid markers.",
-            author: "Elena R.",
-            role: "Lawyer",
-            rating: 5
-        }
-    ];
 
     const faqs = [
         {
@@ -205,35 +185,41 @@ const Subscribe = () => {
             {/* --- Pricing Section --- */}
             <Membership />
 
-            {/* --- Testimonials --- */}
-            <section className="py-24 bg-white">
+            {/* --- Authenticity Section --- */}
+            <section className="py-24 bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto px-6">
                     <FadeIn className="text-center mb-16">
-                        <SectionHeading>Don't just take our word for it</SectionHeading>
+                        <SectionHeading>Integrity over influence.</SectionHeading>
+                        <p className="text-lg text-gray-500 max-w-2xl mx-auto mt-4 font-light">
+                            As a new company, we refuse to use manufactured social proof. We believe your health decisions should be based on science and transparency, not paid endorsements.
+                        </p>
                     </FadeIn>
                     <StaggerContainer className="grid md:grid-cols-3 gap-8">
-                        {testimonials.map((t, i) => (
-                            <StaggerItem key={i} className="bg-cream p-8 rounded-3xl relative">
-                                <div className="text-teal-700 mb-6">
-                                    <Icons.Quote size={40} className="opacity-20" />
+                        {[
+                            {
+                                icon: <Icons.ShieldCheck className="w-8 h-8" />,
+                                title: "Zero Fake Proof",
+                                desc: "No paid actors. No cherry-picked reviews. We are launching with a clean slate and radical honesty."
+                            },
+                            {
+                                icon: <Icons.Activity className="w-8 h-8" />,
+                                title: "Biological Truth",
+                                desc: "We focus on the 100+ biomarkers that matter. The only 'testimonial' we care about is your improved health data."
+                            },
+                            {
+                                icon: <Icons.Zap className="w-8 h-8" />,
+                                title: "Early Access",
+                                desc: "Be among the first to experience a healthcare model designed for the future, not the status quo."
+                            }
+                        ].map((item, i) => (
+                            <StaggerItem key={i} className="bg-cream p-10 rounded-[2.5rem] border border-transparent hover:border-teal-100 transition-all duration-500">
+                                <div className="text-teal-700 mb-6 bg-white w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm">
+                                    {item.icon}
                                 </div>
-                                <p className="text-gray-700 text-lg mb-6 relative z-10 font-medium font-serif leading-relaxed">
-                                    "{t.quote}"
+                                <h3 className="text-2xl font-serif text-gray-900 mb-4">{item.title}</h3>
+                                <p className="text-gray-700 font-light leading-relaxed">
+                                    {item.desc}
                                 </p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-teal-700 font-bold">
-                                        {t.author.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <div className="font-bold text-gray-900">{t.author}</div>
-                                        <div className="text-sm text-gray-500">{t.role}</div>
-                                    </div>
-                                    <div className="ml-auto flex gap-0.5">
-                                        {[...Array(t.rating)].map((_, r) => (
-                                            <Icons.Star key={r} size={14} className="fill-teal-500 text-teal-500" />
-                                        ))}
-                                    </div>
-                                </div>
                             </StaggerItem>
                         ))}
                     </StaggerContainer>

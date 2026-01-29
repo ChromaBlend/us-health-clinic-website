@@ -5,12 +5,6 @@ export interface FaqItem {
   answer: string;
 }
 
-export interface Testimonial {
-  name: string;
-  age: number;
-  quote: string;
-  image: string;
-}
 
 export interface Feature {
   title: string;

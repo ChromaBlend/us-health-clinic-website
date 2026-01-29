@@ -6,19 +6,6 @@ import { Link } from 'react-router-dom';
 
 const ADDITIONAL_CONCERNS = [
     {
-        title: "Stress & Energy",
-        symptom: "You feel constantly drained, overwhelmed, or running on empty. Even after rest, your energy doesn't fully return.",
-        explanation: "That's often a sign your body is under prolonged stress. When stress responses stay switched on, energy production and recovery suffer.",
-        approach: "We use lab data to understand how your body responds to stress and produces energy, then correct the drivers keeping your system overstretched.",
-        mayInclude: [
-            "Stress-response regulation support",
-            "Energy metabolism optimization",
-            "Targeted nutrition and lifestyle strategies"
-        ],
-        result: "More consistent energy and a greater sense of resilience throughout the day.",
-        image: "/images/concerns/stress_energy.png"
-    },
-    {
         title: "Sleep Quality",
         symptom: "You struggle to fall asleep, stay asleep, or wake up feeling rested. Nights pass, but recovery doesn't happen.",
         explanation: "That's often a sign your internal rhythms are out of sync. Hormones, stress signals, and metabolism all play a role in sleep quality.",
@@ -31,26 +18,15 @@ const ADDITIONAL_CONCERNS = [
         result: "Deeper, more restorative sleep and better recovery overnight.",
         image: "/images/concerns/sleep_quality.png"
     },
-    {
-        title: "Skin Aging",
-        symptom: "Your skin looks tired, dull, or older than you feel. Topical products help briefly, but changes don't last.",
-        explanation: "That's often a sign aging is happening beneath the surface. Skin reflects nutrient status, inflammation, and cellular health inside the body.",
-        approach: "We use lab data to understand internal drivers of skin aging, then support cellular repair and balance from within.",
-        mayInclude: [
-            "Nutrient and antioxidant support",
-            "Inflammation reduction strategies",
-            "Cellular health optimization"
-        ],
-        result: "Healthier-looking skin that reflects improved internal balance.",
-        image: "/images/concerns/skin_aging.png"
-    },
+
     {
         title: "Inflammation",
         symptom: "You're told your inflammation markers are elevated, or you feel sore, puffy, or slow to recover more often than before.",
-        explanation: "That's often a sign the body is under constant low-grade stress. Inflammation can be driven by metabolic imbalance, gut issues, or nutrient deficiencies.",
-        approach: "We use lab data to identify sources of inflammation, then address the drivers contributing to ongoing stress in the body.",
+        explanation: "That's often a sign the body is under constant low-grade stress. Inflammation can be driven by metabolic imbalance, gut issues, nutrient deficiencies, or cholesterol dysregulation.",
+        approach: "We use lab data to identify sources of inflammation and lipid imbalances, then address the drivers contributing to ongoing stress in the body.",
         mayInclude: [
             "Inflammation reduction support",
+            "Lipid and cholesterol optimization",
             "Gut or metabolic optimization",
             "Targeted nutritional strategies"
         ],
@@ -245,6 +221,28 @@ const GUIDED_PATHS = [
         outcome: 'The kind of glow that makeup can\'t mimic.',
         cta: 'Start Protocol',
         image: "/images/treatments/cellular_radiance.png"
+    },
+    {
+        id: 'blood-sugar',
+        label: 'Step 05',
+        title: 'Blood Sugar Balance',
+        hook: `You eat well, avoid excess sugar, and still experience crashes, irritability, or sudden hunger. Energy spikes and drops feel random, and focus doesn’t last. This often signals blood sugar dysregulation. When glucose isn’t managed efficiently, your body swings between highs and lows — driving cravings, fatigue, and inflammation.`,
+        approachTitle: "Our Clinical Approach",
+        approach: `Through advanced glucose and insulin markers, we assess how your body responds to food, stress, and daily rhythms, identifying the patterns that disrupt stable blood sugar control.`,
+        outcome: 'More consistent energy, fewer crashes, and improved metabolic resilience.',
+        cta: 'Start Protocol',
+        image: "/images/treatments/blood_sugar.png"
+    },
+    {
+        id: 'stress-cortisol',
+        label: 'Step 06',
+        title: 'Stress & Cortisol Health',
+        hook: `You’re constantly “on,” yet exhausted. Sleep feels unrefreshing, tension lingers, and even small stressors feel overwhelming. This points to cortisol imbalance. When stress hormones stay elevated or misaligned with your circadian rhythm, recovery slows and both metabolic and emotional health suffer.`,
+        approachTitle: "Our Clinical Approach",
+        approach: `We analyze cortisol patterns and related hormonal markers to understand how stress is impacting your nervous system, sleep, and recovery — then address the root regulatory drivers.`,
+        outcome: 'Improved stress tolerance, deeper recovery, and a calmer, more balanced system.',
+        cta: 'Start Protocol',
+        image: "/images/treatments/stress_cortisol.png"
     }
 ];
 

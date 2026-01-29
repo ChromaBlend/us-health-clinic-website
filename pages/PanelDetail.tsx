@@ -177,21 +177,20 @@ const PanelDetail = () => {
                 </div>
             </section>
 
-            {/* Testimonials */}
-            {panel.testimonials && panel.testimonials.length > 0 && (
-                <section className="py-24 bg-cream/50">
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <Icons.Quote size={48} className="text-teal-200 mx-auto mb-8" />
-                        <blockquote className="text-3xl md:text-4xl font-serif text-gray-900 max-w-4xl mx-auto leading-tight mb-8">
-                            "{panel.testimonials[0].quote}"
-                        </blockquote>
-                        <div className="flex flex-col items-center">
-                            <span className="font-bold text-gray-900">{panel.testimonials[0].author}</span>
-                            <span className="text-sm text-gray-500 uppercase tracking-widest">{panel.testimonials[0].role}</span>
-                        </div>
+            {/* Authenticity Section */}
+            <section className="py-24 bg-cream/50 border-y border-gray-100/50">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <div className="inline-flex p-3 bg-white rounded-2xl shadow-sm text-teal-700 mb-8">
+                        <Icons.ShieldCheck size={32} />
                     </div>
-                </section>
-            )}
+                    <h2 className="text-3xl md:text-4xl font-serif text-gray-900 max-w-2xl mx-auto leading-tight mb-6">
+                        We prioritize <span className="italic text-teal-700">clinical accuracy</span> over social proof.
+                    </h2>
+                    <p className="text-gray-600 max-w-xl mx-auto font-light leading-relaxed">
+                        As a new standard in healthcare, we let our biomarkers and peer-reviewed protocols speak for themselves. No fake reviews, just radical transparency in every test.
+                    </p>
+                </div>
+            </section>
 
             {/* Common Questions */}
             <section className="py-24 bg-white">
