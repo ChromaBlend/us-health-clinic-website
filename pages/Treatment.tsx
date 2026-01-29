@@ -243,6 +243,17 @@ const GUIDED_PATHS = [
         outcome: 'Improved stress tolerance, deeper recovery, and a calmer, more balanced system.',
         cta: 'Start Protocol',
         image: "/images/treatments/stress_cortisol.png"
+    },
+    {
+        id: 'hormones',
+        label: 'Step 07',
+        title: 'Hormones',
+        hook: `You feel tired, emotionally off, or not quite like yourself. Changes in mood, motivation, or recovery can creep in slowly and linger. Hormone-related symptoms often reflect deeper stress on the body, affecting multiple systems at once.`,
+        approachTitle: "Our Clinical Approach",
+        approach: `By evaluating hormone signaling in the context of metabolic and stress-related markers, we identify the drivers disrupting hormonal balance and address them systematically.`,
+        outcome: 'Improved energy, emotional balance, and a greater sense of stability.',
+        cta: 'Start Protocol',
+        image: "/images/treatments/Hormones.png"
     }
 ];
 

@@ -86,9 +86,9 @@ export const WhyMembership = () => {
                             {/* Logo / Header */}
                             <div className="flex flex-col items-center mb-10 h-[60px] justify-end">
                                 <div className="text-center">
-                                    <span className="block text-3xl font-bold leading-none">US</span>
-                                    <span className="block text-3xl font-bold leading-none">Health</span>
-                                    <span className="block text-[10px] tracking-[0.25em] font-light mt-1 text-teal-100 opacity-90 uppercase">Clinic</span>
+                                    <span className="block text-3xl font-bold leading-none font-serif">US</span>
+                                    <span className="block text-3xl font-bold leading-none font-serif">Health</span>
+                                    <span className="block text-[10px] tracking-[0.25em] font-light mt-1 text-teal-100 opacity-90 uppercase font-sans">Clinic</span>
                                 </div>
                             </div>
 
@@ -96,7 +96,7 @@ export const WhyMembership = () => {
                             <div className="space-y-0 mt-6">
                                 {comparisonData.map((item, i) => (
                                     <div key={i} className={`flex items-center justify-center ${ROW_HEIGHT} border-b border-teal-600/30 last:border-0`}>
-                                        <div className="text-xl md:text-2xl font-medium text-center text-white">
+                                        <div className="text-xl md:text-2xl font-medium text-center text-white font-serif">
                                             {item.ushc}
                                         </div>
                                     </div>

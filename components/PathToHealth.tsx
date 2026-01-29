@@ -8,7 +8,7 @@ const steps = [
         step: 1,
         title: "Test your whole body",
         desc: "Get a comprehensive blood draw at one of our 2,000+ partner labs or from the comfort of your own home.",
-        image: "/images/how-it-works/test-your-whole-body.jpeg"
+        image: "/images/how-it-works/step-1-test.png"
     },
     {
         step: 2,
@@ -20,7 +20,7 @@ const steps = [
         step: 3,
         title: "A connected ecosystem",
         desc: "You can book additional diagnostics, buy curated supplements with members-only discounts in your US Health Clinic dashboard.",
-        image: "/images/how-it-works/a-connected-ecosystem.jpeg"
+        image: "/images/how-it-works/step-3-ecosystem.png"
     }
 ];
 
