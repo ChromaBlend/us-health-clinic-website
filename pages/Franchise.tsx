@@ -24,15 +24,7 @@ const Marquee = ({ text }: { text: string }) => (
     </div>
 );
 
-const BentoCard = ({ children, className = "", title, subtitle }: { children?: React.ReactNode, className?: string, title?: string, subtitle?: string }) => (
-    <div className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors duration-500 flex flex-col ${className}`}>
-        {children}
-        <div className="mt-auto pt-8">
-            {subtitle && <p className="text-teal-400 text-sm tracking-wider uppercase mb-2">{subtitle}</p>}
-            {title && <h3 className="text-2xl font-medium text-white font-serif">{title}</h3>}
-        </div>
-    </div>
-);
+// --- Components ---
 
 const Metric = ({ value, label }: { value: string, label: string }) => (
     <div>
@@ -132,6 +124,22 @@ const Hero = () => {
     );
 };
 
+const BentoCard = ({ children, className = "", title, subtitle }: { children?: React.ReactNode, className?: string, title?: string, subtitle?: string }) => (
+    <div className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:bg-white/10 transition-colors duration-500 flex flex-col relative overflow-hidden h-full ${className}`}>
+        {/* Content Slot - Padding handled per-card or via wrapper if needed */}
+        {children}
+
+        {(title || subtitle) && (
+            <div className="relative z-20 px-8 pb-8 mt-auto">
+                <div className="pt-4 border-t border-white/5">
+                    {subtitle && <p className="text-teal-400 text-[10px] tracking-[0.2em] uppercase mb-1">{subtitle}</p>}
+                    {title && <h3 className="text-xl md:text-2xl font-medium text-white font-serif leading-tight">{title}</h3>}
+                </div>
+            </div>
+        )}
+    </div>
+);
+
 const BentoGridSection = () => (
     <section className="bg-[#051111] py-32 px-6">
         <div className="max-w-7xl mx-auto">
@@ -142,28 +150,31 @@ const BentoGridSection = () => (
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-[300px] gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-[340px] gap-6">
 
                 {/* Large Clinical Card */}
-                <BentoCard className="md:col-span-8 group overflow-hidden" title="The Biomarker Loop" subtitle="Proprietary Science">
-                    <div className="absolute inset-0 bg-[#0a2020] opacity-50"></div>
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579165466541-74e2beeac73e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-1000 grayscale"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#051111] via-[#051111]/40 to-transparent"></div>
-                    <div className="relative z-10 flex flex-col justify-end h-full">
-                        <p className="text-gray-300 max-w-lg mb-4 text-lg font-light">Our clinical engine tracks 100+ data points, using AI-driven protocols to automate prescription adjustments, supplement dosing, and patient outcomes.</p>
-                        <div className="flex gap-4">
-                            <span className="px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Auto-Retention</span>
-                            <span className="px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Closed Loop Care</span>
+                <BentoCard className="md:col-span-8 group" title="The Biomarker Loop" subtitle="Proprietary Science">
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-0 bg-[#0a2020] opacity-50"></div>
+                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579165466541-74e2beeac73e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-1000 grayscale"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#051111] via-[#051111]/20 to-transparent"></div>
+                    </div>
+
+                    <div className="relative z-10 p-8 flex flex-col justify-center h-full">
+                        <p className="text-gray-300 max-w-lg mb-6 text-base md:text-xl font-light leading-relaxed">Our clinical engine tracks 100+ data points, using AI-driven protocols to automate prescription adjustments and patient outcomes.</p>
+                        <div className="flex gap-3">
+                            <span className="px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Auto-Retention</span>
+                            <span className="px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-[10px] text-teal-400 uppercase tracking-widest font-bold">Closed Loop Care</span>
                         </div>
                     </div>
                 </BentoCard>
 
                 {/* Stat Card: Wellness Economy */}
                 <BentoCard className="md:col-span-4 bg-teal-900/10 border-teal-500/20" title="Longevity Boom" subtitle="Market Demand">
-                    <div className="flex-1 flex flex-col justify-center items-center text-center">
-                        <div className="text-7xl font-light text-white mb-2">$5.6<span className="text-teal-400">T</span></div>
+                    <div className="flex-1 flex flex-col justify-center items-center text-center p-8">
+                        <div className="text-6xl md:text-8xl font-light text-white mb-2 leading-none">$5.6<span className="text-teal-400">T</span></div>
                         <p className="text-teal-400/60 text-xs tracking-widest uppercase font-bold">Global Wellness Economy</p>
-                        <div className="mt-8 flex flex-col gap-2 w-full">
+                        <div className="mt-8 flex flex-col gap-2 w-full max-w-[240px]">
                             <div className="h-1 bg-white/10 w-full rounded-full overflow-hidden">
                                 <div className="h-full bg-teal-400 w-[75%] animate-pulse"></div>
                             </div>
@@ -174,39 +185,43 @@ const BentoGridSection = () => (
 
                 {/* Vertical Support Card */}
                 <BentoCard className="md:col-span-4 bg-white/5" title="USHC Academy" subtitle="Operational Control">
-                    <div className="flex-1 flex flex-col justify-center space-y-6">
-                        <div className="space-y-4">
-                            {[
-                                { t: "Clinical SOPs", d: "Turnkey protocols for MD/NP staff." },
-                                { t: "Marketing Playbook", d: "Automated local lead generation." },
-                                { t: "Compliance Suite", d: "Regulatory & legal desk included." }
-                            ].map((s, i) => (
-                                <div key={i} className="flex gap-4 items-start">
-                                    <div className="w-5 h-5 rounded bg-teal-500/20 border border-teal-500/40 flex items-center justify-center shrink-0">
-                                        <Icons.Check size={12} className="text-teal-400" />
-                                    </div>
-                                    <div>
-                                        <h5 className="text-white text-sm font-bold leading-none mb-1">{s.t}</h5>
-                                        <p className="text-gray-500 text-xs leading-tight">{s.d}</p>
-                                    </div>
+                    <div className="flex-1 flex flex-col justify-center space-y-6 p-8">
+                        {[
+                            { t: "Clinical SOPs", d: "Turnkey protocols for MD/NP staff." },
+                            { t: "Marketing Playbook", d: "Automated local lead generation." },
+                            { t: "Compliance Suite", d: "Regulatory & legal desk included." }
+                        ].map((s, i) => (
+                            <div key={i} className="flex gap-4 items-start">
+                                <div className="w-6 h-6 rounded bg-teal-500/20 border border-teal-500/40 flex items-center justify-center shrink-0 mt-0.5">
+                                    <Icons.Check size={14} className="text-teal-400" />
                                 </div>
-                            ))}
-                        </div>
+                                <div>
+                                    <h5 className="text-white text-base font-bold leading-none mb-1">{s.t}</h5>
+                                    <p className="text-gray-500 text-xs leading-tight font-light">{s.d}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </BentoCard>
 
                 {/* Revenue Card */}
                 <BentoCard className="md:col-span-4 bg-teal-900/10" title="Zero Insurance" subtitle="Financial Model">
-                    <div className="flex-1 flex flex-col justify-center items-center">
-                        <Icons.Zap size={50} className="text-teal-400 mb-4 animate-bounce-slow" />
-                        <h4 className="text-white text-3xl font-serif text-center mb-2">100% Cash Pay</h4>
-                        <p className="text-gray-400 text-xs text-center max-w-[180px] font-light">Eliminate medical billing headaches. Predictable recurring dues & high-margin formulations.</p>
+                    <div className="flex-1 flex flex-col justify-center items-center p-8">
+                        <div className="w-16 h-16 rounded-2xl bg-teal-400/10 flex items-center justify-center mb-6">
+                            <Icons.Zap size={32} className="text-teal-400 animate-bounce-slow" />
+                        </div>
+                        <h4 className="text-white text-3xl md:text-4xl font-serif text-center mb-3">100% Cash Pay</h4>
+                        <p className="text-gray-400 text-sm text-center max-w-[240px] font-light leading-relaxed">Eliminate medical billing headaches. Predictable recurring dues & high-margin formulations.</p>
                     </div>
                 </BentoCard>
 
                 {/* Design Card */}
                 <BentoCard className="md:col-span-4 group overflow-hidden" title="Bespoke Design" subtitle="The Space">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-1000"></div>
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-0 bg-[#051111]/40 z-10"></div>
+                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-1000"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#051111] via-transparent to-transparent z-20"></div>
+                    </div>
                 </BentoCard>
 
             </div>

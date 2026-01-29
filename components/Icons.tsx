@@ -35,6 +35,8 @@ import {
   Award,
   ArrowLeft,
   MessageCircle,
+  MessageSquare,
+  ArrowUp,
   Calendar,
   BookOpen,
   FileText,
@@ -55,6 +57,8 @@ import {
   Loader2,
   Briefcase,
   Maximize,
+  Sparkles,
+  History,
 } from 'lucide-react';
 
 export const Icons = {
@@ -93,6 +97,8 @@ export const Icons = {
   Award,
   ArrowLeft,
   MessageCircle,
+  MessageSquare: MessageSquare,
+  ArrowUp: ArrowUp,
   Calendar,
   BookOpen,
   FileText,
@@ -113,4 +119,6 @@ export const Icons = {
   Loader: Loader2,
   Briefcase,
   Maximize,
+  Sparkles,
+  History,
 };

@@ -5,6 +5,7 @@ import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import PageTransition from './components/PageTransition';
+import { AIChat } from './components/AIChat';
 import Home from './pages/Home';
 import HowItWorks from './pages/HowItWorks';
 import WhatWeTest from './pages/WhatWeTest';
@@ -110,6 +111,7 @@ const App = () => {
       )}
 
       {!shouldHideNavAndFooter && <Footer />}
+      <AIChat />
     </div>
   );
 };
