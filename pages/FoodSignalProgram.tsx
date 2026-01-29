@@ -379,7 +379,7 @@ const FoodSignalProgram = () => {
                         {/* Left Side - Image */}
                         <div className="hidden lg:block lg:col-span-5 relative h-full min-h-[600px]">
                             <img
-                                src="/images/food-signal-program/expert-feedback.png"
+                                src="/images/food-signal-program/form-image.jpeg"
                                 alt="Healthy food and feedback"
                                 className="absolute inset-0 w-full h-full object-cover"
                             />
