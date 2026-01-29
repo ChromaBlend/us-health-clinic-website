@@ -7,24 +7,15 @@ const FoodSignalProgram = () => {
     const teamMembers = [
         {
             name: "Melissa Vasikauskas, RD",
-            role: "Co-Founder & Lead Dietitian",
             image: "/images/food-signal-program/melissa.png",
             bio: "Leading clinical strategy to ensure every insight is medically sound and evidence-based.",
             imageClass: "object-cover"
         },
         {
             name: "Bree Gorman, MPH",
-            role: "Behavioral Strategy Lead",
             image: "/images/food-signal-program/bree.png",
             bio: "Expert in habit formation and behavioral health, helping you make changes that actually stick.",
             imageClass: "object-cover scale-110"
-        },
-        {
-            name: "Kyle Henry",
-            role: "CEO and Cofounder",
-            image: "/images/food-signal-program/kyle.png",
-            bio: "Leading strategic vision to ensure product decisions align with compassionate, science-backed AI.",
-            imageClass: "object-cover"
         }
     ];
 
@@ -266,34 +257,33 @@ const FoodSignalProgram = () => {
 
             {/* TEAM SECTION */}
             <section className="py-32 px-6 max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
                     {teamMembers.map((member, index) => (
-                        <FadeIn key={index} direction="up" delay={index * 0.1}>
-                            <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
-                                <div className="aspect-[4/3] overflow-hidden">
-                                    <img
-                                        src={member.image}
-                                        alt={member.name}
-                                        className={`w-full h-full ${member.imageClass}`}
-                                    />
+                        <div key={index} className="w-full max-w-md">
+                            <FadeIn direction="up" delay={index * 0.1}>
+                                <div className="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
+                                    <div className="aspect-[4/3] overflow-hidden">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            className={`w-full h-full ${member.imageClass}`}
+                                        />
+                                    </div>
+                                    <div className="p-8 md:p-10 space-y-4 text-left flex-grow">
+                                        <h3 className="text-2xl font-bold text-gray-900 leading-tight">{member.name}</h3>
+                                        {/* @ts-ignore */}
+                                        {member.role && <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{member.role}</p>}
+                                        <p className="text-gray-600 leading-relaxed font-light text-[15px] whitespace-pre-line">
+                                            {member.bio}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="p-8 md:p-10 space-y-4 text-left flex-grow">
-                                    <h3 className="text-2xl font-bold text-gray-900 leading-tight">{member.name}</h3>
-                                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{member.role}</p>
-                                    <p className="text-gray-600 leading-relaxed font-light text-[15px] whitespace-pre-line">
-                                        {member.bio}
-                                    </p>
-                                </div>
-                            </div>
-                        </FadeIn>
+                            </FadeIn>
+                        </div>
                     ))}
                 </div>
 
-                <div className="text-center mt-20">
-                    <p className="text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em] leading-loose">
-                        IN PARTNERSHIP WITH TUNE HEALTH TECHNOLOGY. EXECUTIVE LEADERSHIP: KYLE HENRY, CEO.
-                    </p>
-                </div>
+
             </section>
 
             {/* PROGRAM DETAILS */}
@@ -383,41 +373,111 @@ const FoodSignalProgram = () => {
             </section>
 
             {/* FORM AREA */}
-            <div id="join-pilot" className="pt-32 pb-10 px-6">
-                <FadeIn className="max-w-xl mx-auto bg-white border border-gray-100 rounded-[2.5rem] p-10 lg:p-14 shadow-2xl relative z-10 -mb-20">
-                    <div className="text-center space-y-4 mb-10">
-                        <h2 className="text-3xl font-serif text-gray-900">Ready to Tune Your Metabolism?</h2>
-                        <p className="text-gray-500">Join the free pilot. Spots are limited.</p>
+            <div id="join-pilot" className="pt-32 pb-20 px-6">
+                <FadeIn className="max-w-7xl mx-auto bg-white border border-gray-100 rounded-[2.5rem] shadow-2xl overflow-hidden relative z-10">
+                    <div className="grid lg:grid-cols-12 gap-0">
+                        {/* Left Side - Image */}
+                        <div className="hidden lg:block lg:col-span-5 relative h-full min-h-[600px]">
+                            <img
+                                src="/images/food-signal-program/expert-feedback.png"
+                                alt="Healthy food and feedback"
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-[#0D5D56]/10 mix-blend-multiply"></div>
+                            <div className="absolute bottom-10 left-10 right-10 text-white p-6 backdrop-blur-md bg-white/10 rounded-3xl border border-white/20 shadow-lg">
+                                <p className="font-serif text-2xl mb-2">"The insights changed how I eat forever."</p>
+                                <div className="flex items-center gap-2 text-sm font-medium opacity-90">
+                                    <Icons.Star className="w-4 h-4 fill-current" />
+                                    <span>Verified Pilot Member</span>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div className="inline-block bg-teal-50 text-[#0D5D56] px-4 py-1.5 rounded-full text-xs font-bold animate-pulse">
-                            🔥 Only 14 spots left for this cohort
+                        {/* Right Side - Form */}
+                        <div className="lg:col-span-7 p-10 lg:p-16">
+                            <div className="text-left space-y-4 mb-10">
+                                <h2 className="text-3xl md:text-4xl font-serif text-gray-900 leading-tight">Ready to Tune Your <br /><span className="italic text-[#0D5D56]">Metabolism?</span></h2>
+                                <p className="text-gray-500 text-lg">Join the free pilot. Spots are limited.</p>
+
+                                <div className="inline-block bg-teal-50 text-[#0D5D56] px-4 py-1.5 rounded-full text-xs font-bold animate-pulse mt-2">
+                                    🔥 Only 14 spots left for this cohort
+                                </div>
+                            </div>
+
+                            <form className="space-y-5">
+                                <div className="space-y-1">
+                                    <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Full Name</label>
+                                    <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="Jane Michel" />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Age</label>
+                                    <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="e.g; 40" />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Phone Number</label>
+                                    <input type="tel" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="(555) 555-5555" />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Email Address</label>
+                                    <input type="email" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="jane@example.com" />
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Height (inches)</label>
+                                        <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="e.g; 72" />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Weight (lbs)</label>
+                                        <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="e.g; 150" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Primary Goal (Select one)</label>
+                                    <div className="relative">
+                                        <select className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 appearance-none focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all text-gray-700">
+                                            <option>Fat Loss</option>
+                                            <option>Weight Maintenance</option>
+                                            <option>Muscle Gain</option>
+                                            <option>Metabolic Health</option>
+                                            <option>Longevity & Overall Healthy Life</option>
+                                        </select>
+                                        <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
+                                            <Icons.ChevronDown className="w-4 h-4" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3 pt-2">
+                                    <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Are you currently on any medication?</label>
+                                    <div className="flex gap-6">
+                                        <label className="flex items-center gap-2 cursor-pointer group">
+                                            <input type="radio" name="medication" value="yes" className="w-5 h-5 text-[#0D5D56] border-gray-300 focus:ring-[#0D5D56]" />
+                                            <span className="text-gray-700 group-hover:text-[#0D5D56] transition-colors">Yes</span>
+                                        </label>
+                                        <label className="flex items-center gap-2 cursor-pointer group">
+                                            <input type="radio" name="medication" value="no" className="w-5 h-5 text-[#0D5D56] border-gray-300 focus:ring-[#0D5D56]" />
+                                            <span className="text-gray-700 group-hover:text-[#0D5D56] transition-colors">No</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="bg-teal-50/50 p-4 rounded-xl border border-teal-100/50 mt-2">
+                                    <p className="text-xs text-[#0D5D56]/80 text-center leading-relaxed">
+                                        This information helps us personalize calorie targets, macros, and meal timing safely
+                                    </p>
+                                </div>
+
+                                <Button type="button" className="w-full !bg-[#0D5D56] hover:!bg-[#08423D] !text-white !py-4 !text-lg !rounded-full shadow-lg hover:shadow-xl mt-2">
+                                    Get Started
+                                </Button>
+                            </form>
                         </div>
                     </div>
-
-                    <form className="space-y-5">
-                        <div className="space-y-1">
-                            <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">First Name</label>
-                            <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="Jane" />
-                        </div>
-
-                        <div className="space-y-1">
-                            <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Phone Number*</label>
-                            <input type="tel" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="(555) 555-5555" required />
-                        </div>
-
-                        <div className="space-y-1">
-                            <label className="block text-xs font-bold uppercase tracking-wide text-gray-400">Email Address</label>
-                            <input type="email" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 focus:outline-none focus:border-[#0D5D56] focus:ring-1 focus:ring-[#0D5D56] transition-all" placeholder="jane@example.com" />
-                        </div>
-
-                        <Button type="button" className="w-full !bg-[#0D5D56] hover:!bg-[#08423D] !text-white !py-4 !text-lg !rounded-full shadow-lg hover:shadow-xl mt-6">
-                            Join Free Pilot
-                        </Button>
-
-                        <p className="text-[10px] text-gray-400 text-center leading-tight mt-6 px-4">
-                            By signing up, you agree to receive text messages from US Health Clinic. Reply STOP to opt out anytime. Your data is private and HIPAA-protected.
-                        </p>
-                    </form>
                 </FadeIn>
             </div>
             {/* SPACING FOR FOOTER OVERLAP */}

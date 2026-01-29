@@ -112,23 +112,92 @@ const Subscribe = () => {
                         <SectionSub>A complete ecosystem for your health.</SectionSub>
                     </FadeIn>
 
-                    <StaggerContainer className="grid md:grid-cols-3 gap-12">
-                        {[
-                            { icon: Icons.Activity, title: "Precision Diagnostics", desc: "100+ biomarkers testing heart, hormones, metabolic function, and nutrients." },
-                            { icon: Icons.User, title: "Physician Review", desc: "Detailed breakdown of your results by a functional medicine doctor." },
-                            { icon: Icons.Zap, title: "Personalized Plan", desc: "Custom protocols for nutrition, supplements, and lifestyle." },
-                            { icon: Icons.MessageCircle, title: "Ongoing Support", desc: "Direct messaging with your care team for adjustments and questions." }, // Replaced MessageSquare with MessageCircle or similar available icon
-                            { icon: Icons.TrendingUp, title: "Progress Tracking", desc: "Monitor your biological age and key markers over time." },
-                            { icon: Icons.ShieldCheck, title: "Member Perks", desc: "Exclusive discounts on supplements and additional testing." }
-                        ].map((item, i) => (
-                            <StaggerItem key={i} className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
-                                <div className="w-16 h-16 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center mb-6">
-                                    <item.icon size={32} strokeWidth={1.5} />
+                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+
+                        {/* 1. Precision Diagnostics (Hero - Large) */}
+                        <StaggerItem className="md:col-span-2 md:row-span-2 group p-8 md:p-12 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100 relative overflow-hidden flex flex-col justify-between">
+                            {/* Decoration */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-100/30 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-700 pointer-events-none group-hover:bg-teal-200/40"></div>
+
+                            <div className="relative z-10 sm:max-w-md">
+                                <div className="w-16 h-16 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-8 group-hover:scale-110 transition-transform duration-300">
+                                    <Icons.Activity size={32} />
                                 </div>
-                                <h3 className="text-xl font-serif font-medium text-gray-900 mb-3">{item.title}</h3>
-                                <p className="text-gray-500 leading-relaxed">{item.desc}</p>
-                            </StaggerItem>
-                        ))}
+                                <h3 className="text-3xl md:text-4xl font-serif text-gray-900 mb-6 leading-tight">Precision Diagnostics</h3>
+                                <p className="text-gray-600 leading-relaxed text-lg mb-8">
+                                    100+ biomarkers testing heart, hormones, metabolic function, and nutrients. We look deep where others just skim the surface.
+                                </p>
+                            </div>
+
+                            <div className="mt-8 flex gap-3 overflow-hidden opacity-40">
+                                {/* Visual fake graph lines - Darkened for light mode */}
+                                <div className="h-16 w-2 bg-teal-200 rounded-full animate-pulse" style={{ animationDelay: '0s' }}></div>
+                                <div className="h-24 w-2 bg-teal-300 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                                <div className="h-12 w-2 bg-teal-200 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                                <div className="h-32 w-2 bg-teal-400 rounded-full animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                                <div className="h-20 w-2 bg-teal-300 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+                            </div>
+                        </StaggerItem>
+
+                        {/* 2. Physician Review */}
+                        <StaggerItem className="md:col-span-1 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
+                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Icons.User size={28} />
+                            </div>
+                            <h3 className="text-xl font-serif text-gray-900 mb-3">Physician Review</h3>
+                            <p className="text-gray-600 leading-relaxed text-sm">
+                                Detailed breakdown of your results by a functional medicine doctor.
+                            </p>
+                        </StaggerItem>
+
+                        {/* 3. Personalized Plan */}
+                        <StaggerItem className="md:col-span-1 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
+                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Icons.Zap size={28} />
+                            </div>
+                            <h3 className="text-xl font-serif text-gray-900 mb-3">Personalized Plan</h3>
+                            <p className="text-gray-600 leading-relaxed text-sm">
+                                Custom protocols for nutrition, supplements, and lifestyle.
+                            </p>
+                        </StaggerItem>
+
+                        {/* 4. Ongoing Support - Wide */}
+                        <StaggerItem className="md:col-span-2 lg:col-span-2 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
+                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Icons.MessageCircle size={28} />
+                            </div>
+                            <h3 className="text-xl font-serif text-gray-900 mb-3">Ongoing Support</h3>
+                            <p className="text-gray-600 leading-relaxed text-sm">
+                                Direct messaging with your care team for adjustments and questions.
+                            </p>
+                        </StaggerItem>
+
+                        {/* 5. Progress Tracking */}
+                        <StaggerItem className="md:col-span-1 lg:col-span-2 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100">
+                            <div className="w-14 h-14 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Icons.TrendingUp size={28} />
+                            </div>
+                            <h3 className="text-xl font-serif text-gray-900 mb-3">Progress Tracking</h3>
+                            <p className="text-gray-600 leading-relaxed text-sm">
+                                Monitor your biological age and key markers over time.
+                            </p>
+                        </StaggerItem>
+
+                        {/* 6. Member Perks */}
+                        <StaggerItem className="md:col-span-1 lg:col-span-2 group p-8 rounded-[2.5rem] bg-gray-50 hover:bg-teal-50/50 transition-colors duration-500 border border-transparent hover:border-teal-100 flex flex-col justify-center">
+                            <div className="flex flex-col md:flex-row items-center gap-6 justify-center text-center md:text-left">
+                                <div className="w-16 h-16 shrink-0 rounded-2xl bg-white text-teal-700 flex items-center justify-center shadow-sm mb-0 group-hover:scale-110 transition-transform duration-300">
+                                    <Icons.ShieldCheck size={32} />
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-serif text-gray-900 mb-2">Member Perks</h3>
+                                    <p className="text-gray-600 leading-relaxed max-w-md">
+                                        Exclusive discounts on supplements, additional testing, and partner brands.
+                                    </p>
+                                </div>
+                            </div>
+                        </StaggerItem>
+
                     </StaggerContainer>
                 </div>
             </section>
@@ -197,7 +266,7 @@ const Subscribe = () => {
                     <p className="text-teal-100 text-xl mb-12 max-w-2xl mx-auto">
                         Your personalized roadmap to health is just one click away. Join the community prioritizing longevity today.
                     </p>
-                    <Button onClick={() => document.getElementById('membership')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white text-teal-900 hover:bg-teal-50 text-lg px-10 py-4">
+                    <Button variant="secondary" onClick={() => document.getElementById('membership')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white text-teal-900 hover:bg-teal-50 border-none text-lg px-10 py-4">
                         Get Started Now
                     </Button>
                 </FadeIn>

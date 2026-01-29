@@ -1,90 +1,112 @@
 import React from 'react';
-import { Icons } from './Icons';
 import { FadeIn } from './Animations';
 
 export const WhyMembership = () => {
-    const features = [
-        "Doctor-led comprehensive care",
-        "100+ biomarkers analyzed",
-        "Personalized optimization plan",
-        "Root-cause resolution",
-        "Holistic lifestyle integration",
-        "Ongoing support & coaching"
+    // Shared row height for perfect alignment
+    const ROW_HEIGHT = "h-20";
+
+    const comparisonData = [
+        {
+            label: "Biomarkers tested",
+            traditional: "10–20",
+            ushc: "100+"
+        },
+        {
+            label: "Detection Stage",
+            traditional: "Reactive",
+            ushc: "Early/preventive"
+        },
+        {
+            label: "Assessment scope",
+            traditional: "Fragmented",
+            ushc: "Whole-body"
+        },
+        {
+            label: "Treatment focus",
+            traditional: "Symptoms",
+            ushc: "Root cause"
+        },
+        {
+            label: "Action plan",
+            traditional: "General",
+            ushc: "Personalized"
+        },
+        {
+            label: "Progress tracking",
+            traditional: "Visit-based",
+            ushc: "Ongoing"
+        }
     ];
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden font-sans">
             <div className="max-w-6xl mx-auto px-6 relative z-10">
                 <FadeIn>
-                    <div className="relative group">
-                        {/* Main Card */}
-                        <div className="relative z-10 border-2 border-teal-600/30 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row bg-white p-2">
+                    <div className="text-center mb-20 max-w-3xl mx-auto">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-6 tracking-tight font-serif">
+                            Move Beyond Basic Bloodwork.
+                        </h2>
+                        <p className="text-gray-500 text-lg leading-relaxed max-w-2xl mx-auto">
+                            Standard screenings focus on disease detection. We use precision diagnostics to uncover root causes and optimize your health before symptoms appear.
+                        </p>
+                    </div>
 
-                            {/* Left Side: Branding/Intro */}
-                            <div className="w-full md:w-5/12 p-6 sm:p-8 md:p-16 flex flex-row md:flex-col justify-between md:justify-center items-center md:items-start bg-white relative gap-4">
-                                <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif text-black leading-[1.1]">
-                                    We're a <br />
-                                    whole <br />
-                                    different <br />
-                                    breed
-                                </h2>
-                                <p className="text-sm sm:text-base md:text-lg text-gray-500 font-sans md:mt-6 text-right md:text-left max-w-[140px] sm:max-w-[180px] md:max-w-xs leading-normal">
-                                    A proactive, data-driven approach to help you live healthier, longer.
-                                </p>
+                    <div className="flex flex-col md:flex-row items-center justify-center -space-y-6 md:space-y-0 relative">
+
+                        {/* Left Side: Traditional Care (White Card) */}
+                        <div className="w-full md:w-3/5 bg-white rounded-[2rem] border border-gray-100 shadow-lg relative z-0 md:mr-[-40px] md:pr-16 pb-12 pt-16">
+
+                            {/* Header Row - Aligned with Grid */}
+                            <div className="grid grid-cols-[1.3fr_1fr] md:grid-cols-[1.2fr_1fr] gap-4 px-6 md:px-10 mb-8 items-end">
+                                <div></div> {/* Empty for Label column */}
+                                <div className="text-center">
+                                    <h3 className="text-xl font-bold text-black leading-tight">Traditional Care</h3>
+                                </div>
                             </div>
 
-                            {/* Right Side: Comparison Table */}
-                            <div className="w-full md:w-7/12 bg-teal-50/30 rounded-[2rem] p-6 md:p-12 relative flex flex-col justify-center">
-                                {/* Header Row */}
-                                <div className="grid grid-cols-[1fr_auto_auto] gap-3 md:gap-12 mb-8 border-b border-teal-100/50 pb-6">
-                                    <div className="px-2 md:px-4">
-                                        {/* Spacer for feature name */}
-                                    </div>
-                                    <div className="px-1 text-center w-14 md:w-16">
-                                        <span className="text-[10px] md:text-xs font-bold text-teal-800 uppercase tracking-widest block">
-                                            USHC
-                                        </span>
-                                    </div>
-                                    <div className="px-1 text-center w-14 md:w-16">
-                                        <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block">
-                                            Others
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Feature Rows */}
-                                <div className="space-y-6">
-                                    {features.map((feature, i) => (
-                                        <div key={i} className="grid grid-cols-[1fr_auto_auto] gap-3 md:gap-12 items-center group/item hover:bg-white/50 rounded-xl transition-colors duration-300">
-                                            {/* Feature Name */}
-                                            <div className="px-2 md:px-4 py-2">
-                                                <span className="font-sans text-teal-900 font-medium text-sm md:text-lg">
-                                                    {feature}
-                                                </span>
-                                            </div>
-
-                                            {/* USHC Check */}
-                                            <div className="px-2 py-2 flex justify-center w-16">
-                                                <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white shadow-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-
-                                            {/* Others Empty Circle */}
-                                            <div className="px-2 py-2 flex justify-center w-16">
-                                                <div className="w-8 h-8 rounded-full border-2 border-gray-100 bg-white shadow-inner"></div>
-                                            </div>
+                            {/* Data Rows */}
+                            <div className="space-y-0 px-6 md:px-10">
+                                {comparisonData.map((item, i) => (
+                                    <div key={i} className={`grid grid-cols-[1.3fr_1fr] md:grid-cols-[1.2fr_1fr] gap-4 items-center ${ROW_HEIGHT} border-b border-gray-50 last:border-0`}>
+                                        <div className="text-teal-700 font-medium text-lg md:text-xl text-left">
+                                            {item.label}
                                         </div>
-                                    ))}
-                                </div>
+                                        <div className="text-gray-900 text-center text-lg md:text-xl">
+                                            {item.traditional}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
+
+
+                        {/* Right Side: US Health Clinic (Teal Card - "Pop-out") */}
+                        <div className="w-full md:w-[420px] bg-[#0f766e] text-white rounded-[2rem] shadow-2xl relative z-10 p-8 pb-12 md:py-16 transform md:scale-105 origin-center">
+
+                            {/* Logo / Header */}
+                            <div className="flex flex-col items-center mb-10 h-[60px] justify-end">
+                                <div className="text-center">
+                                    <span className="block text-3xl font-bold leading-none">US</span>
+                                    <span className="block text-3xl font-bold leading-none">Health</span>
+                                    <span className="block text-[10px] tracking-[0.25em] font-light mt-1 text-teal-100 opacity-90 uppercase">Clinic</span>
+                                </div>
+                            </div>
+
+                            {/* Values - Aligned with shared height */}
+                            <div className="space-y-0 mt-6">
+                                {comparisonData.map((item, i) => (
+                                    <div key={i} className={`flex items-center justify-center ${ROW_HEIGHT} border-b border-teal-600/30 last:border-0`}>
+                                        <div className="text-xl md:text-2xl font-medium text-center text-white">
+                                            {item.ushc}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                     </div>
                 </FadeIn>
             </div>
         </section>
     );
 };
-
