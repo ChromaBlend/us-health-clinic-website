@@ -53,6 +53,8 @@ import {
   Moon,
   CheckCircle,
   Loader2,
+  Briefcase,
+  Maximize,
 } from 'lucide-react';
 
 export const Icons = {
@@ -109,4 +111,6 @@ export const Icons = {
   Moon,
   CheckCircle,
   Loader: Loader2,
+  Briefcase,
+  Maximize,
 };
