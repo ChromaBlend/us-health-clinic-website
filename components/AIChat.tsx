@@ -3,7 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './Icons';
 import { Button } from './UI';
 import { getPageContextAsToon } from '../utils/toon';
+import { sendMessage } from '../utils/ai';
 import { useConvexAuth } from "convex/react";
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
     role: 'user' | 'assistant';
@@ -21,9 +23,9 @@ type ViewState = 'home' | 'chat' | 'history';
 export const AIChat = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [view, setView] = useState<ViewState>('home');
-    const [messages, setMessages] = useState<Message[]>([
-        { role: 'assistant', content: 'Hello! I am your US Health Clinic assistant. How can I help you today?' }
-    ]);
+    const INITIAL_MESSAGE: Message = { role: 'assistant', content: 'Hello! I am your US Health Clinic assistant. How can I help you today?' };
+
+    const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,34 +50,52 @@ export const AIChat = () => {
     const handleSend = async (text: string = input) => {
         if (!text.trim()) return;
 
-        if (view !== 'chat') setView('chat');
+        let currentMessages = messages;
 
-        const userMessage = text;
+        // If sending from home view, start a fresh chat
+        if (view === 'home') {
+            currentMessages = [INITIAL_MESSAGE];
+            setView('chat');
+        }
+
+        const userMessageContent = text;
         setInput('');
-        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+
+        const newMessages = [...currentMessages, { role: 'user', content: userMessageContent } as Message];
+        setMessages(newMessages);
         setIsTyping(true);
 
         // Get page context in TOON format
         const context = getPageContextAsToon();
-        console.log('Context (TOON):', context);
 
-        // Mock AI response for now
-        setTimeout(() => {
-            const responses = [
-                "I understand. Based on the page you're currently viewing, US Health Clinic offers comprehensive biomarker testing to help you optimize your health.",
-                "That's a great question! Our doctors use data-driven insights to tailor a treatment plan specifically for your needs.",
-                "You can find more details about our membership plans on the 'Subscribe' page, or I can help explain the benefits here.",
-                "I see you're interested in our services. Would you like to know more about what we test or how our treatment process works?"
-            ];
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        try {
+            // Convert messages to Gemini history format
+            // API Requirement: History must start with a 'user' role
+            let startIndex = newMessages.findIndex(m => m.role === 'user');
+            if (startIndex === -1) startIndex = newMessages.length;
 
-            setMessages(prev => [...prev, { role: 'assistant', content: randomResponse }]);
+            const historyForApi = newMessages.slice(startIndex).map(m => ({
+                role: m.role === 'user' ? 'user' : 'model',
+                parts: [{ text: m.content }]
+            }));
+
+            // Exclude the last message (which is the one we just added) to avoid duplication if the API expects it separate
+            // But getGenerativeModel chat.sendMessage expects the *new* message as argument, and history as previous.
+            // The history passed to startChat should NOT contain the new message.
+            const historyForChat = historyForApi.slice(0, -1);
+
+            const aiResponse = await sendMessage(historyForChat, userMessageContent, context);
+
+            setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
+        } catch (error) {
+            setMessages(prev => [...prev, { role: 'assistant', content: "Sorry, something went wrong." }]);
+        } finally {
             setIsTyping(false);
-        }, 1500);
+        }
     };
 
     const startNewChat = () => {
-        setMessages([{ role: 'assistant', content: 'Hello! I am your US Health Clinic assistant. How can I help you today?' }]);
+        setMessages([INITIAL_MESSAGE]);
         setView('chat');
     };
 
@@ -159,12 +179,32 @@ export const AIChat = () => {
                                     {isAuthenticated && (
                                         <button
                                             onClick={openHistory}
-                                            className="text-xs text-teal-700 font-medium hover:underline flex items-center gap-1"
+                                            className="text-xs text-teal-700 font-medium hover:underline flex items-center gap-1 mb-20"
                                         >
                                             <Icons.History className="w-3 h-3" />
                                             View previous conversations
                                         </button>
                                     )}
+
+                                    {/* Input for Home View */}
+                                    <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 flex gap-2 z-20">
+                                        <input
+                                            type="text"
+                                            placeholder="Ask anything..."
+                                            className="flex-1 bg-gray-100 border-none rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-teal-700/20 outline-none"
+                                            value={input}
+                                            onChange={(e) => setInput(e.target.value)}
+                                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                                            autoFocus
+                                        />
+                                        <button
+                                            onClick={() => handleSend()}
+                                            disabled={!input.trim()}
+                                            className="bg-teal-700 text-white p-2 rounded-xl hover:bg-teal-600 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            <Icons.ArrowUp className="w-4 h-4" />
+                                        </button>
+                                    </div>
                                 </div>
                             )}
 
@@ -213,11 +253,22 @@ export const AIChat = () => {
                                             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                                 <div
                                                     className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
-                                                            ? 'bg-teal-700 text-white rounded-tr-none'
-                                                            : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-tl-none'
+                                                        ? 'bg-teal-700 text-white rounded-tr-none'
+                                                        : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-tl-none'
                                                         }`}
                                                 >
-                                                    {msg.content}
+                                                    <ReactMarkdown
+                                                        components={{
+                                                            p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                                            ul: ({ children }) => <ul className="list-disc list-inside mb-2 ml-1">{children}</ul>,
+                                                            ol: ({ children }) => <ol className="list-decimal list-inside mb-2 ml-1">{children}</ol>,
+                                                            li: ({ children }) => <li className="mb-1">{children}</li>,
+                                                            strong: ({ children }) => <span className="font-semibold">{children}</span>,
+                                                            a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:text-teal-500">{children}</a>
+                                                        }}
+                                                    >
+                                                        {msg.content}
+                                                    </ReactMarkdown>
                                                 </div>
                                             </div>
                                         ))}
