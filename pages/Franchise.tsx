@@ -1,256 +1,301 @@
-import React from 'react';
-import { Button, SectionHeading, SectionSub, Accordion } from '../components/UI';
+import React, { useEffect, useRef } from 'react';
+import { Button } from '../components/UI';
 import { Icons } from '../components/Icons';
+import { Link } from 'react-router-dom';
 
 // --- Components ---
 
 const Marquee = ({ text }: { text: string }) => (
-    <div className="bg-teal-700 border-y border-teal-600 overflow-hidden py-4 relative z-20">
-        <div className="animate-marquee whitespace-nowrap flex gap-8 text-teal-100/60 font-serif text-lg tracking-widest uppercase items-center">
-            {/* Repeated text for seamless loop */}
-            {[...Array(10)].map((_, i) => (
-                <React.Fragment key={i}>
-                    <span>{text}</span>
-                    <Icons.Star size={16} />
-                </React.Fragment>
-            ))}
+    <div className="bg-teal-900 border-y border-teal-800 overflow-hidden py-4 relative z-20">
+        <div className="animate-marquee whitespace-nowrap flex gap-8 text-teal-200/40 font-serif text-lg tracking-widest uppercase items-center">
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
+            <span>{text}</span>
+            <Icons.Star size={16} />
         </div>
     </div>
 );
 
-const FeatureCard = ({ icon: Icon, title, description, className = "" }: { icon: any, title: string, description: string, className?: string }) => (
-    <div className={`bg-white rounded-[2rem] p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-start group ${className}`}>
-        <div className="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center text-teal-700 mb-6 group-hover:scale-110 transition-transform duration-300">
-            <Icon size={28} />
+const BentoCard = ({ children, className = "", title, subtitle }: { children?: React.ReactNode, className?: string, title?: string, subtitle?: string }) => (
+    <div className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors duration-500 flex flex-col ${className}`}>
+        {children}
+        <div className="mt-auto pt-8">
+            {subtitle && <p className="text-teal-400 text-sm tracking-wider uppercase mb-2">{subtitle}</p>}
+            {title && <h3 className="text-2xl font-medium text-white font-serif">{title}</h3>}
         </div>
-        <h3 className="text-2xl font-medium text-gray-900 font-serif mb-3">{title}</h3>
-        <p className="text-gray-500 leading-relaxed text-base">{description}</p>
     </div>
 );
 
-const StatCard = ({ value, label, highlight = false }: { value: string, label: string, highlight?: boolean }) => (
-    <div className={`rounded-[2rem] p-8 border ${highlight ? 'bg-teal-900 border-teal-800 text-white shadow-xl' : 'bg-white border-gray-100 text-gray-900 shadow-lg'} transition-all duration-300`}>
-        <div className={`text-5xl md:text-6xl font-light mb-4 ${highlight ? 'text-white' : 'text-teal-700'}`}>{value}</div>
-        <div className={`text-sm tracking-widest uppercase font-bold ${highlight ? 'text-teal-200' : 'text-gray-400'}`}>{label}</div>
+const Metric = ({ value, label }: { value: string, label: string }) => (
+    <div>
+        <div className="text-4xl md:text-5xl font-light text-white mb-2">{value}</div>
+        <div className="text-teal-400 text-sm tracking-wider uppercase">{label}</div>
     </div>
 );
 
 // --- Sections ---
 
 const Hero = () => (
-    <section className="relative min-h-[90vh] bg-cream text-gray-900 overflow-hidden flex flex-col justify-center pt-20">
+    <section className="relative min-h-screen bg-[#051111] text-white overflow-hidden flex flex-col justify-center pt-20">
+
         {/* Background Gradients */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-teal-100/50 rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/4"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-orange-50/50 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/4"></div>
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-teal-600/20 rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/4"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/4"></div>
 
         <div className="max-w-7xl mx-auto px-6 w-full relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+
             <div className="space-y-8">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
-                    <span className="text-xs font-bold tracking-wide text-teal-800 uppercase">Affiliate Program Now Open</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span className="text-xs font-medium tracking-wide text-teal-100 uppercase">Selection Phase - Applications Open</span>
                 </div>
 
-                <h1 className="text-6xl md:text-8xl font-serif font-medium leading-[1.05] tracking-tight">
-                    Become a <br />
-                    <span className="italic text-teal-700">Joult</span> Affiliate.
+                <h1 className="text-6xl md:text-8xl font-serif font-light leading-[0.9]">
+                    Own the <br />
+                    <span className="italic text-teal-400">Science</span> of <br />
+                    <span className="font-bold">Longevity.</span>
+                    <span className="block text-xl font-sans font-light text-teal-500/60 mt-4 tracking-[0.2em] uppercase">Opening 2026</span>
                 </h1>
 
-                <p className="text-xl text-gray-600 max-w-lg leading-relaxed font-light border-l-4 border-teal-100 pl-6">
-                    Earn up to <span className="text-teal-800 font-bold">$120 per sale</span>, plus <span className="text-teal-800 font-bold">$1,000+</span> in passive lifetime commissions per customer.
-                    <span className="block mt-4 text-sm text-gray-400 uppercase tracking-widest font-bold">Refer customers. Start earning today.</span>
+                <p className="text-xl text-gray-400 max-w-lg leading-relaxed font-light">
+                    The world doesn't need another spa. It needs precision medicine. Join the only doctor-led, biomarker-based franchise network.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <Button className="!bg-teal-700 hover:!bg-teal-800 !text-white !px-10 !py-5 !text-lg !rounded-full font-bold shadow-xl shadow-teal-900/10">
-                        Become an affiliate
+                    <Button className="!bg-teal-400 !text-[#051111] hover:!bg-teal-300 !px-10 !py-5 !text-lg !rounded-full font-bold">
+                        Join selection list
+                    </Button>
+                    <Button variant="outline" className="!border-white/20 !text-white hover:!bg-white/10 !px-10 !py-5 !text-lg !rounded-full">
+                        <span className="flex items-center gap-2">
+                            Download Prospectus <Icons.Download size={18} />
+                        </span>
                     </Button>
                 </div>
+
             </div>
 
-            {/* Visual Abstract UI */}
-            <div className="relative hidden lg:block">
-                <div className="relative z-10 bg-white/80 backdrop-blur-xl border border-white/40 rounded-[2.5rem] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] skew-y-1 hover:skew-y-0 transition-transform duration-700">
-                    <div className="space-y-8">
-                        <div className="flex items-center justify-between border-b border-gray-100 pb-8">
-                            <div>
-                                <div className="text-sm text-gray-400 uppercase tracking-wider font-bold mb-2">Your Balance</div>
-                                <div className="text-5xl font-serif text-gray-900">$12,450.00</div>
-                            </div>
-                            <div className="w-16 h-16 bg-teal-50 rounded-full flex items-center justify-center text-teal-700">
-                                <Icons.TrendingUp size={32} />
-                            </div>
-                        </div>
-                        <div className="space-y-6">
-                            <div className="flex items-center justify-between text-base">
-                                <span className="text-gray-500">Commissions (Jan)</span>
-                                <span className="text-teal-700 font-bold text-xl">+$2,340.00</span>
-                            </div>
-                            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                                <div className="h-full bg-teal-500 w-[75%] rounded-full"></div>
-                            </div>
-                            <div className="p-6 bg-teal-50 rounded-2xl border border-teal-100 text-center">
-                                <span className="text-teal-800 text-sm font-medium">Next Payout: </span>
-                                <span className="text-teal-900 font-bold ml-1 text-lg">March 15th</span>
-                            </div>
-                        </div>
-                    </div>
+            {/* Visual People UI */}
+            <div className="relative hidden lg:block perspective-1000">
+                <div className="relative z-10 bg-gray-900/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl transform rotate-y-12 rotate-x-6 hover:rotate-0 transition-transform duration-700">
+                    <img
+                        src="/images/franchise-founders.png"
+                        alt="US Health Clinic Founders"
+                        className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                    />
                 </div>
-                {/* Decorative Elements */}
-                <div className="absolute -top-10 -right-10 w-48 h-48 border border-teal-200 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
-                    <div className="w-4 h-4 bg-teal-400 rounded-full absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-                </div>
+
+                {/* Floating "Card" behind */}
+                <div className="absolute -inset-4 bg-teal-500/10 rounded-[2.5rem] blur-xl -z-10"></div>
             </div>
         </div>
     </section>
 );
 
-const WhyPromote = () => (
-    <section className="bg-white py-32 px-6">
+const BentoGridSection = () => (
+    <section className="bg-[#051111] py-32 px-6">
         <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-12 gap-16 items-center">
-                <div className="lg:col-span-5 space-y-10">
-                    <h2 className="text-4xl md:text-6xl font-serif text-gray-900 leading-tight">Why promote <br /><span className="italic text-teal-700">Joult?</span></h2>
-                    <p className="text-xl text-gray-500 leading-relaxed">
-                        Promote clinically backed, doctor-designed care. That means more recurring income, less churn, and no fluff.
-                    </p>
+            <div className="mb-20">
+                <h2 className="text-4xl md:text-6xl text-white font-serif mb-6">The Unfair Advantage.</h2>
+                <div className="w-24 h-1 bg-teal-500"></div>
+            </div>
 
-                    <div className="space-y-6 pt-4">
-                        <div className="bg-cream p-8 rounded-3xl border border-teal-100/50">
-                            <h4 className="text-gray-900 font-bold uppercase tracking-widest text-sm border-b border-gray-200 pb-4 mb-6">Complete Health Transformation</h4>
-                            <ul className="space-y-4">
-                                {[
-                                    "Access to 160+ lab tests",
-                                    "Earn every time referral buys a test",
-                                    "Harvard & Stanford trained physicians",
-                                    "Genetic testing included",
-                                    "Medicated weightloss access"
-                                ].map((item, i) => (
-                                    <li key={i} className="flex items-start gap-4">
-                                        <div className="mt-1 w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 shrink-0">
-                                            <Icons.Check size={12} strokeWidth={3} />
-                                        </div>
-                                        <span className="text-gray-600 font-medium">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 grid-rows-[auto] gap-6">
+
+                {/* Large Visual Card */}
+                <BentoCard className="md:col-span-6 lg:col-span-8 min-h-[400px] relative group overflow-hidden" title="Data-Driven Care" subtitle="The Core">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385180-60fdd8f73121?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#051111] via-transparent to-transparent"></div>
+                    <div className="relative z-10 mb-4 h-full flex flex-col justify-end">
+                        <p className="text-gray-300 max-w-md">We don't guess. We test. Our proprietary panel of 100+ biomarkers is the engine of your business, driving prescriptions, supplements, and retention.</p>
+                    </div>
+                </BentoCard>
+
+                {/* Stat Card */}
+                <BentoCard className="md:col-span-6 lg:col-span-4 bg-teal-900/20" title="Wellness Economy" subtitle="The Market">
+                    <div className="flex items-center justify-center flex-1">
+                        <div className="text-center">
+                            <span className="text-6xl md:text-7xl font-light text-white overflow-hidden inline-block">$5.6<span className="text-teal-400">T</span></span>
                         </div>
                     </div>
+                </BentoCard>
+
+                {/* Vertical Card */}
+                <BentoCard className="md:col-span-3 lg:col-span-3 min-h-[300px]" title="Recurring Revenue" subtitle="The Model">
+                    <div className="flex-1 flex items-center justify-center">
+                        <Icons.RefreshCw size={64} className="text-teal-500/50" />
+                    </div>
+                    <p className="text-gray-400 text-sm mt-4">Membership-based model ensures predictable cash flow.</p>
+                </BentoCard>
+
+                {/* Image Card */}
+                <BentoCard className="md:col-span-3 lg:col-span-5 relative group overflow-hidden" title="Luxury Design" subtitle="The Space">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700"></div>
+                </BentoCard>
+
+                {/* Text Card */}
+                <BentoCard className="md:col-span-6 lg:col-span-4 bg-gray-800/20" title="Turnkey Ops" subtitle="The System">
+                    <ul className="space-y-4 mt-4">
+                        <li className="flex items-center gap-3 text-gray-400">
+                            <Icons.Check className="text-teal-400" size={18} /> Staffing & Training
+                        </li>
+                        <li className="flex items-center gap-3 text-gray-400">
+                            <Icons.Check className="text-teal-400" size={18} /> Supply Chain Direct
+                        </li>
+                        <li className="flex items-center gap-3 text-gray-400">
+                            <Icons.Check className="text-teal-400" size={18} /> Marketing Playbook
+                        </li>
+                    </ul>
+                </BentoCard>
+            </div>
+        </div>
+    </section>
+);
+
+const ComparisonSection = () => (
+    <section className="bg-white text-gray-900 py-32 px-6 rounded-t-[3rem] -mt-10 relative z-10">
+        <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-24">
+                <h2 className="text-4xl md:text-6xl font-serif mb-6">Not a Medspa. <br /><span className="text-teal-700 italic">A Health System.</span></h2>
+                <p className="text-xl text-gray-500 max-w-2xl mx-auto">Most franchises sell a service. We sell an outcome. Here is how we differ from the noise.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12 lg:gap-24 relative">
+                <div className="space-y-12">
+                    <h3 className="text-2xl font-bold border-b border-gray-200 pb-4">Traditional Medspa</h3>
+                    <ul className="space-y-8 opacity-60">
+                        <li className="flex gap-4">
+                            <Icons.X className="text-red-400 shrink-0" />
+                            <div>
+                                <h4 className="font-bold">Transactional</h4>
+                                <p className="text-sm">Client comes in for botox, leaves. No relationship.</p>
+                            </div>
+                        </li>
+                        <li className="flex gap-4">
+                            <Icons.X className="text-red-400 shrink-0" />
+                            <div>
+                                <h4 className="font-bold">Generic Menu</h4>
+                                <p className="text-sm">Same services as the clinic next door. Price wars.</p>
+                            </div>
+                        </li>
+                        <li className="flex gap-4">
+                            <Icons.X className="text-red-400 shrink-0" />
+                            <div>
+                                <h4 className="font-bold">Guesswork</h4>
+                                <p className="text-sm">Treating symptoms without knowing internal data.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
-                <div className="lg:col-span-7 grid md:grid-cols-2 gap-6">
-                    <FeatureCard
-                        icon={Icons.RefreshCw}
-                        title="Recurring Income"
-                        description="Every paid signup through your link earns recurring commission, no limits. Build a passive income stream that grows over time."
-                    />
-                    <FeatureCard
-                        icon={Icons.ShieldCheck}
-                        title="Clinically Backed"
-                        description="You're promoting real medicine, not supplements. Doctor-designed care ensures high retention and customer trust."
-                        className="bg-cream"
-                    />
-                    <div className="md:col-span-2 bg-gradient-to-br from-gray-900 to-gray-800 rounded-[2rem] p-10 relative overflow-hidden group text-white shadow-2xl">
-                        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <Icons.TrendingUp size={150} />
-                        </div>
-                        <h3 className="text-3xl font-serif mb-4 relative z-10">How do I make money?</h3>
-                        <p className="text-gray-300 max-w-lg relative z-10 text-lg leading-relaxed">
-                            Share your unique affiliate link through content, communities, or conversations. Some affiliates grow faster by placing their unique QR code with local vendors.
-                        </p>
-                    </div>
+                <div className="space-y-12 relative">
+                    {/* Divider on desktop */}
+                    <div className="hidden md:block absolute left-[-3rem] top-0 bottom-0 w-px bg-gray-100"></div>
+
+                    <h3 className="text-2xl font-bold border-b border-teal-200 pb-4 text-teal-800">US Health Clinic</h3>
+                    <ul className="space-y-8">
+                        <li className="flex gap-4">
+                            <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 shrink-0">
+                                <Icons.Check size={14} />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-lg">Relationship First</h4>
+                                <p className="text-gray-600">Membership model builds a community, not a customer list.</p>
+                            </div>
+                        </li>
+                        <li className="flex gap-4">
+                            <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 shrink-0">
+                                <Icons.Check size={14} />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-lg">Proprietary Protocols</h4>
+                                <p className="text-gray-600">Exclusive formulations and peptide therapies you can't get elsewhere.</p>
+                            </div>
+                        </li>
+                        <li className="flex gap-4">
+                            <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 shrink-0">
+                                <Icons.Check size={14} />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-lg">Deep Data</h4>
+                                <p className="text-gray-600">We own the lab loop. Patient sees results in numbers, reinforcing value.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 );
 
-const Earnings = () => (
-    <section className="bg-cream py-32 px-6 relative overflow-hidden">
-        {/* Background blobs */}
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-teal-100/50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-            <div className="text-center mb-20">
-                <h2 className="text-4xl md:text-6xl font-serif text-gray-900 mb-6">How much can I earn?</h2>
-                <div className="flex items-center justify-center gap-4 text-teal-700 font-bold tracking-widest uppercase text-sm">
-                    <span className="h-px w-12 bg-teal-200"></span>
-                    No Cap. No Limits.
-                    <span className="h-px w-12 bg-teal-200"></span>
-                </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-                <StatCard value="$10K+" label="Top Affiliates / Month" highlight={true} />
-                <StatCard value="$2–$3K" label="Spending 1 Hour / Day" />
-                <StatCard value="Lifetime" label="Passive Commission" />
-            </div>
-
-            <div className="mt-20 text-center max-w-2xl mx-auto">
-                <div className="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-100 relative">
-                    <Icons.Quote className="absolute top-8 left-8 text-teal-100 w-12 h-12 -z-10" />
-                    <p className="text-gray-600 italic text-xl font-serif leading-relaxed">
-                        "Earn $2–$3K spending just 1 hour a day, posting 100 high-impact comments or posts."
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-const FAQSection = () => (
-    <section className="bg-white py-32 px-6 relative z-20">
+const Timeline = () => (
+    <section className="bg-gray-50 py-32 px-6">
         <div className="max-w-4xl mx-auto">
-            <SectionHeading>Details & Logistics</SectionHeading>
-            <SectionSub className="mb-16">Everything you need to know about getting paid.</SectionSub>
+            <h2 className="text-4xl font-serif text-center mb-20">Path to Launch</h2>
 
-            <div className="space-y-4">
-                <Accordion
-                    title="What are the payout minimums?"
-                    content="We require a minimum balance of $25 before processing an affiliate payout. We set this to avoid any fraudulent issues with our affiliate program."
-                />
-                <Accordion
-                    title="When do I get paid?"
-                    content="We payout on NET30 terms to account for refunds and chargebacks. For example, commissions generated in January would be paid out on March 15th (NET30)."
-                />
-                <Accordion
-                    title="How do I sign up?"
-                    content="The Getrewardful affiliate hub hosts our affiliate program. Click the 'Become an affiliate' button below to create an account and join our program."
-                />
+            <div className="relative">
+                {/* Center Line */}
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2 hidden md:block"></div>
+
+                {[
+                    { title: "Application & Review", desc: "Submit your inquiry. Our team vets for financial fit and territory availability.", icon: Icons.User },
+                    { title: "Discovery Day", desc: "Fly to our HQ. Meet the doctors, see the tech, experience the clinic.", icon: Icons.MapPin },
+                    { title: "Site Selection", desc: "Our real estate team helps you find the perfect A+ location.", icon: Icons.Globe },
+                    { title: "Grand Opening", desc: "Launch with a waitlist of members ready to join.", icon: Icons.Play }
+                ].map((step, i) => (
+                    <div key={i} className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 mb-16 relative ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+
+                        {/* Text Side */}
+                        <div className={`w-full md:w-1/2 ${i % 2 !== 0 ? 'md:pl-16 text-left' : 'md:pr-16 md:text-right'} text-center md:text-current`}>
+                            <h4 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h4>
+                            <p className="text-gray-600">{step.desc}</p>
+                        </div>
+
+                        {/* Icon Node */}
+                        <div className="relative z-10 w-16 h-16 bg-white border-4 border-teal-50 shadow-lg rounded-full flex items-center justify-center text-teal-700">
+                            <step.icon size={24} />
+                        </div>
+
+                        {/* Empty Side */}
+                        <div className="w-full md:w-1/2"></div>
+                    </div>
+                ))}
             </div>
         </div>
     </section>
 );
 
 const FooterCTA = () => (
-    <section className="relative py-24 md:py-32 bg-teal-900 px-6 text-center z-10 overflow-hidden">
-        {/* Decor */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none"></div>
-
-        <div className="max-w-4xl mx-auto relative z-10">
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-white mb-10 rotate-3 shadow-2xl">
-                <Icons.Zap size={48} className="text-teal-900" />
+    <section className="py-24 bg-[#051111] px-6 text-center border-t border-white/5">
+        <div className="max-w-3xl mx-auto">
+            <div className="w-20 h-20 bg-teal-500 rounded-2xl rotate-12 mx-auto mb-10 flex items-center justify-center text-[#051111] shadow-[0_0_50px_rgba(20,184,166,0.5)]">
+                <Icons.ArrowUpRight size={40} />
             </div>
-
-            <h2 className="text-5xl md:text-8xl font-serif text-white mb-8 tracking-tight leading-none">
-                High impact. <br />
-                <span className="text-teal-400">High income.</span>
-            </h2>
-
-            <p className="text-xl md:text-2xl text-teal-100/80 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-                Our affiliates see real returns by sharing something that actually works and keeps users coming back.
-            </p>
-
-            <Button className="!bg-white hover:!bg-teal-50 !text-teal-900 !px-12 !py-6 !text-xl !rounded-full font-bold shadow-2xl hover:scale-105 transform transition-all duration-300">
-                Become an affiliate
-            </Button>
+            <h2 className="text-5xl md:text-7xl font-serif text-white mb-8">This is your moment.</h2>
+            <p className="text-xl text-gray-400 mb-12">Territories are being awarded monthly. Secure your market before it's gone.</p>
+            <form className="max-w-md mx-auto space-y-4">
+                <input type="email" placeholder="Enter your email" className="w-full px-8 py-5 rounded-full bg-white/10 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-teal-500 backdrop-blur-md" />
+                <Button className="w-full !bg-teal-400 hover:!bg-teal-300 !text-[#051111] !py-5 !text-lg !rounded-full font-bold">
+                    Join Selection List
+                </Button>
+            </form>
         </div>
     </section>
 );
 
 const Franchise = () => {
+    // Add custom marquee animation style via a style tag or className if Tailwind config allows.
+    // Assuming standard Tailwind for most, but `animate-marquee` might need definition.
+    // I will include a style block for the specific keyframes since I can't touch index.css easily for just this one page without risk.
     return (
-        <main className="bg-white">
+        <main className="bg-[#051111]">
             <style>
                 {`
                 @keyframes marquee {
@@ -263,10 +308,10 @@ const Franchise = () => {
                 `}
             </style>
             <Hero />
-            <Marquee text="Recurring Revenue • Passive Income • High Retention • Doctor Led •" />
-            <WhyPromote />
-            <Earnings />
-            <FAQSection />
+            <Marquee text="Recurring Revenue • Doctor Led • Biomarker Based • High Retention •" />
+            <BentoGridSection />
+            <ComparisonSection />
+            <Timeline />
             <FooterCTA />
         </main>
     );
