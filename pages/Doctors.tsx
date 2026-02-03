@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icons } from '../components/Icons';
-import { Button } from '../components/UI';
+import { Button, SectionHeading, SectionSub } from '../components/UI';
 import { FadeIn } from '../components/Animations';
 
 const Hero = () => (
@@ -18,10 +18,16 @@ const Hero = () => (
                         Join a network of forward-thinking physicians dedicated to root-cause resolution. We handle the operations; you handle the care.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-100 mb-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-100">
                             <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
                             <span className="text-sm font-medium tracking-wide text-teal-800 uppercase">Hiring MDs, DOs, & NPs</span>
                         </div>
+                        <Button to="#apply" onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
+                        }}>
+                            Join the Network
+                        </Button>
                     </div>
                 </div>
 
@@ -30,23 +36,7 @@ const Hero = () => (
                         <h3 className="text-2xl font-serif text-gray-900 mb-2">Join the Network</h3>
                         <p className="text-gray-500 mb-6 text-sm">Submit your interest and our Medical Director will reach out.</p>
 
-                        <form className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <input type="text" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 transition-all outline-none" placeholder="First Name" />
-                                <input type="text" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 transition-all outline-none" placeholder="Last Name" />
-                            </div>
-                            <input type="email" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 transition-all outline-none" placeholder="Email Address" />
-                            <select className="w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 transition-all outline-none icon-chevron-down">
-                                <option>Select Specialty</option>
-                                <option>Internal Medicine</option>
-                                <option>Family Medicine</option>
-                                <option>Functional Medicine</option>
-                                <option>Other</option>
-                            </select>
-                            <input type="url" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 transition-all outline-none" placeholder="LinkedIn or CV URL" />
-                            <textarea className="w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 transition-all outline-none min-h-[100px]" placeholder="Why do you want to join?"></textarea>
-                            <Button className="w-full !py-4 !text-lg !rounded-xl">Submit Application</Button>
-                        </form>
+                        <JoinNetworkForm />
                     </div>
                 </div>
             </div>
@@ -64,15 +54,12 @@ const Features = () => (
                 {/* Sticky Left Header */}
                 <div className="md:w-1/3 relative md:sticky md:top-32">
                     <span className="text-teal-700 font-bold tracking-widest text-sm uppercase mb-4 block">The Benefits</span>
-                    <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6 leading-tight">
-                        Why doctors <br /> <span className="italic text-gray-400">choose us</span>
-                    </h2>
-                    <p className="text-gray-500 text-lg leading-relaxed mb-8">
+                    <SectionHeading align="left" className="mb-6">
+                        Why doctors <br /> <span className="italic text-teal-700">choose us</span>
+                    </SectionHeading>
+                    <SectionSub align="left" className="mb-8">
                         Build a practice on your terms with the support of a world-class infrastructure. We handle the operations; you handle the care.
-                    </p>
-                    <Button onClick={() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' })} variant="secondary">
-                        Apply Now
-                    </Button>
+                    </SectionSub>
                 </div>
 
                 {/* Right Grid */}
@@ -125,55 +112,210 @@ const Features = () => (
     </section>
 );
 
+const JoinNetworkForm = ({ className = "" }: { className?: string }) => {
+    const [formData, setFormData] = React.useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        specialty: 'Internal Medicine',
+        otherSpecialty: '',
+        url: '',
+        message: ''
+    });
+
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
+    const [touched, setTouched] = React.useState<Record<string, boolean>>({});
+
+    const validateField = (name: string, value: string) => {
+        switch (name) {
+            case 'firstName':
+            case 'lastName':
+                if (!value) return 'Required';
+                if (!/^[a-zA-Z\s-]*$/.test(value)) return 'Only letters allowed';
+                return '';
+            case 'email':
+                if (!value) return 'Required';
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email address';
+                return '';
+            case 'url':
+                if (!value) return 'Required';
+                try {
+                    new URL(value);
+                    return '';
+                } catch {
+                    return 'Invalid URL';
+                }
+            case 'message':
+                if (!value) return 'Required';
+                if (value.length < 10) return 'Too short';
+                return '';
+            case 'otherSpecialty':
+                if (formData.specialty === 'Other' && !value) return 'Please specify';
+                return '';
+            default:
+                return '';
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (touched[name]) {
+            setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+        }
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setTouched(prev => ({ ...prev, [name]: true }));
+        setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    };
+
+    const isValid = React.useMemo(() => {
+        const fieldErrors = {
+            firstName: validateField('firstName', formData.firstName),
+            lastName: validateField('lastName', formData.lastName),
+            email: validateField('email', formData.email),
+            url: validateField('url', formData.url),
+            message: validateField('message', formData.message),
+            otherSpecialty: validateField('otherSpecialty', formData.otherSpecialty),
+        };
+        return Object.values(fieldErrors).every(error => error === '');
+    }, [formData]);
+
+    const getInputClass = (name: string) => `
+        w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 
+        focus:ring-2 transition-all outline-none
+        ${touched[name] && errors[name] ? 'border-red-300 focus:ring-red-100' : 'focus:ring-teal-500 focus:bg-white'}
+    `;
+
+    return (
+        <form className={`space-y-6 ${className}`} onSubmit={(e) => e.preventDefault()}>
+            <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 ml-1">First Name</label>
+                    <input
+                        name="firstName"
+                        type="text"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={getInputClass('firstName')}
+                        placeholder="Jane"
+                    />
+                    {touched.firstName && errors.firstName && <p className="text-red-500 text-xs ml-1">{errors.firstName}</p>}
+                </div>
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 ml-1">Last Name</label>
+                    <input
+                        name="lastName"
+                        type="text"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={getInputClass('lastName')}
+                        placeholder="Doe"
+                    />
+                    {touched.lastName && errors.lastName && <p className="text-red-500 text-xs ml-1">{errors.lastName}</p>}
+                </div>
+            </div>
+
+            <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700 ml-1">Email Address</label>
+                <input
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={getInputClass('email')}
+                    placeholder="doctor@example.com"
+                />
+                {touched.email && errors.email && <p className="text-red-500 text-xs ml-1">{errors.email}</p>}
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 ml-1">Medical Specialty</label>
+                    <select
+                        name="specialty"
+                        value={formData.specialty}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={getInputClass('specialty')}
+                    >
+                        <option>Internal Medicine</option>
+                        <option>Family Medicine</option>
+                        <option>Endocrinology</option>
+                        <option>Functional Medicine</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                {formData.specialty === 'Other' && (
+                    <FadeIn className="space-y-2">
+                        <label className="text-sm font-medium text-gray-700 ml-1">Specify Specialty</label>
+                        <input
+                            name="otherSpecialty"
+                            type="text"
+                            value={formData.otherSpecialty}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={getInputClass('otherSpecialty')}
+                            placeholder="Please specify..."
+                        />
+                        {touched.otherSpecialty && errors.otherSpecialty && <p className="text-red-500 text-xs ml-1">{errors.otherSpecialty}</p>}
+                    </FadeIn>
+                )}
+            </div>
+
+            <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700 ml-1">LinkedIn or CV URL</label>
+                <input
+                    name="url"
+                    type="url"
+                    value={formData.url}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={getInputClass('url')}
+                    placeholder="https://linkedin.com/in/..."
+                />
+                {touched.url && errors.url && <p className="text-red-500 text-xs ml-1">{errors.url}</p>}
+            </div>
+
+            <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700 ml-1">Why do you want to join?</label>
+                <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`${getInputClass('message')} min-h-[120px]`}
+                    placeholder="Tell us about your philosophy..."
+                ></textarea>
+                {touched.message && errors.message && <p className="text-red-500 text-xs ml-1">{errors.message}</p>}
+            </div>
+
+            <Button
+                className={`w-full mt-4 ${!isValid ? 'opacity-50 cursor-not-allowed grayscale' : ''}`}
+                disabled={!isValid}
+            >
+                Submit Application
+            </Button>
+        </form>
+    );
+};
+
 const ApplicationForm = () => (
     <section className="py-32 bg-cream" id="apply">
         <div className="max-w-3xl mx-auto px-6">
             <FadeIn className="bg-white rounded-[2.5rem] p-8 md:p-16 shadow-xl border border-gray-100">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">Join the Network</h2>
-                    <p className="text-gray-500">Submit your interest and our Medical Director will reach out.</p>
+                    <SectionHeading>Join the Network</SectionHeading>
+                    <SectionSub>Submit your interest and our Medical Director will reach out.</SectionSub>
                 </div>
-
-                <form className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 ml-1">First Name</label>
-                            <input type="text" className="w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all outline-none" placeholder="Jane" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 ml-1">Last Name</label>
-                            <input type="text" className="w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all outline-none" placeholder="Doe" />
-                        </div>
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 ml-1">Email Address</label>
-                        <input type="email" className="w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all outline-none" placeholder="doctor@example.com" />
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 ml-1">Medical Specialty</label>
-                        <select className="w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all outline-none">
-                            <option>Internal Medicine</option>
-                            <option>Family Medicine</option>
-                            <option>Endocrinology</option>
-                            <option>Functional Medicine</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 ml-1">LinkedIn or CV URL</label>
-                        <input type="url" className="w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all outline-none" placeholder="https://linkedin.com/in/..." />
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 ml-1">Why do you want to join?</label>
-                        <textarea className="w-full px-6 py-4 rounded-xl bg-gray-50 border-gray-200 focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all outline-none min-h-[120px]" placeholder="Tell us about your philosophy..."></textarea>
-                    </div>
-
-                    <Button className="w-full !py-5 !text-lg !rounded-xl mt-4">Submit Application</Button>
-                </form>
+                <JoinNetworkForm />
             </FadeIn>
         </div>
     </section>

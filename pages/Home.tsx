@@ -2,6 +2,7 @@
 import React from 'react';
 import { Icons } from '../components/Icons';
 import { Button, SectionHeading, SectionSub, Accordion } from '../components/UI';
+import { CTA } from '../components/CTA';
 import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { PathToHealth } from '../components/PathToHealth';
@@ -26,7 +27,7 @@ const Hero = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
               <Button to="/subscribe">Join today</Button>
-              <div className="flex items-center gap-2 text-sm font-medium text-gray-900 bg-white px-4 py-2 rounded-full shadow-sm">
+              <div className="flex items-center gap-2 text-sm font-medium text-gray-900">
                 <div className="bg-teal-100 text-teal-700 rounded-full p-0.5"><Icons.Check className="w-3 h-3" /></div>
                 HSA/FSA eligible
               </div>
@@ -68,7 +69,7 @@ const Methodology = () => (
       <FadeIn className="flex flex-col md:flex-row justify-between items-end mb-20">
         <div className="max-w-2xl">
           <span className="text-teal-700 font-semibold tracking-widest text-xs uppercase mb-4 block">The Methodology</span>
-          <SectionHeading align="left">You're not tired. <span className="italic text-gray-400 block mt-2">You're misinformed.</span></SectionHeading>
+          <SectionHeading align="left">You're not tired. <span className="italic text-teal-700 block mt-2">You're misinformed.</span></SectionHeading>
           <p className="text-xl text-gray-600 mt-6 font-light">Your biology deserves clarity. Not guesswork.</p>
         </div>
         <Button to="/subscribe" variant="secondary" className="mt-8 md:mt-0">Join Today</Button>
@@ -98,7 +99,7 @@ const Biomarkers = () => (
   <section className="py-24 bg-white" id="what-we-test">
     <div className="max-w-7xl mx-auto px-6 text-center">
       <FadeIn>
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">It starts with 100+ labs</h2>
+        <h2 className="text-4xl md:text-5xl font-serif font-medium text-gray-900 mb-6">It starts with 100+ labs</h2>
         <p className="text-lg text-gray-500 max-w-3xl mx-auto mb-20 leading-relaxed">
           From heart health to hormone balance, our comprehensive test panels detect early signs of over 1,000 conditions.
         </p>
@@ -139,11 +140,11 @@ const Discovery = () => (
 
     <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
       <FadeIn>
-        <h2 className="text-4xl md:text-6xl font-serif font-medium mb-8 leading-tight">
-          Most people discover something <br className="hidden md:block" /> no doctor ever found.
+        <h2 className="text-4xl md:text-6xl font-serif font-medium mb-8 leading-normal">
+          Uncover what standard labs miss.
         </h2>
         <p className="text-teal-100/80 text-xl mb-16 max-w-2xl mx-auto font-light">
-          Standard physicals check about 15 markers. We check over 100. The difference is life-changing.
+          Traditional physicals check about 15 markers. We analyze over 100. The difference is life-changing.
         </p>
       </FadeIn>
 
@@ -230,8 +231,8 @@ const Partners = () => (
           ].map((partner, i) => (
             <div key={i} className="flex flex-col items-center gap-4">
               <div className="w-full rounded-full p-2 md:p-3 bg-white">
-                <div className="w-full h-20 rounded-full flex items-center justify-center bg-white hover:shadow-sm transition-shadow duration-300">
-                  <img src={partner.src} alt={partner.alt} className="max-h-10 w-auto object-contain" />
+                <div className="w-full h-24 rounded-full flex items-center justify-center bg-white hover:shadow-sm transition-shadow duration-300">
+                  <img src={partner.src} alt={partner.alt} className="max-h-16 w-auto object-contain" />
                 </div>
               </div>
               <span className="text-sm font-bold text-gray-400 text-center leading-tight">{partner.label}</span>
@@ -263,21 +264,6 @@ const FAQ = () => (
   </section>
 );
 
-const ClaritySection = () => (
-  <section className="py-32 bg-cream text-center">
-    <div className="max-w-4xl mx-auto px-6">
-      <FadeIn>
-        <h2 className="text-4xl md:text-6xl font-serif text-teal-900 mb-8">
-          Clarity is the <span className="italic text-teal-600">beginning of healing</span>.
-        </h2>
-        <div className="flex flex-col items-center gap-4">
-          <Button to="/subscribe">Join Today</Button>
-          <span className="text-sm text-gray-500">30-day money-back guarantee.</span>
-        </div>
-      </FadeIn>
-    </div>
-  </section>
-);
 
 const Home = () => {
   return (
@@ -292,7 +278,13 @@ const Home = () => {
       <Membership />
       <WhyMembership />
       <FAQ />
-      <ClaritySection />
+      <CTA
+        variant="cream"
+        title={<>Clarity is the <span className="italic text-teal-600">beginning of healing</span>.</>}
+        description="30-day money-back guarantee."
+        buttonText="Join Today"
+        onButtonClick={() => window.location.href = '/subscribe'}
+      />
     </main>
   );
 };

@@ -103,9 +103,6 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ item, index }) => {
             <div className={`pl-20 md:pl-0 ${isEven ? 'md:text-right md:pr-16' : 'md:col-start-2 md:pl-16'}`}>
                 <FadeIn delay={0.2}>
                     <div className={`hidden md:flex items-center gap-4 mb-6 ${isEven ? 'justify-end' : 'justify-start'}`}>
-                        <span className="w-8 h-8 bg-teal-50 text-teal-700 rounded-full flex items-center justify-center font-serif text-sm">
-                            {item.step}
-                        </span>
                         <span className="text-sm font-medium tracking-widest uppercase text-teal-500">Step {item.step}</span>
                     </div>
                     <h3 className="text-2xl md:text-3xl font-serif text-teal-900 mb-4">{item.title}</h3>

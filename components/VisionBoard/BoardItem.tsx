@@ -13,6 +13,7 @@ export interface BoardItemProps {
   onUpdate: (id: string, updates: any) => void;
   onDelete: (id: string) => void;
   onBringToFront: (id: string) => void;
+  onHistorySave: () => void;
 }
 
 export const BoardItem: React.FC<BoardItemProps> = ({
@@ -26,6 +27,7 @@ export const BoardItem: React.FC<BoardItemProps> = ({
   onUpdate,
   onDelete,
   onBringToFront,
+  onHistorySave,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const dragControls = useDragControls();
@@ -52,6 +54,7 @@ export const BoardItem: React.FC<BoardItemProps> = ({
 
   const handleResizePointerDown = (e: React.PointerEvent) => {
     e.stopPropagation(); // Prevent parent drag
+    onHistorySave();
     const startX = e.clientX;
     const startY = e.clientY;
     const startWidth = currentWidth;
@@ -93,7 +96,10 @@ export const BoardItem: React.FC<BoardItemProps> = ({
         zIndex
       }}
       onDragEnd={handleDragEnd}
-      onPointerDown={() => onBringToFront(id)}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        onBringToFront(id);
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`${baseStyles} ${typeStyles[type]}`}
@@ -102,7 +108,10 @@ export const BoardItem: React.FC<BoardItemProps> = ({
       {/* Drag Handle & Controls - Only visible on hover */}
       <div
         className={`absolute -top-10 left-0 right-0 h-10 flex items-center justify-between px-2 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        onPointerDown={(e) => dragControls.start(e)}
+        onPointerDown={(e) => {
+          onHistorySave();
+          dragControls.start(e);
+        }}
       >
         <div className="flex gap-2">
           <div className="p-1.5 bg-white text-gray-400 rounded-full shadow-sm cursor-grab hover:text-teal-700">

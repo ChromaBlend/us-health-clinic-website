@@ -1,13 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, SectionHeading, SectionSub } from '../components/UI';
 import { Icons } from '../components/Icons';
 import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
 import { PathToHealth } from '../components/PathToHealth';
 import { Membership } from '../components/Membership';
+import { JoinModal } from '../components/JoinModal';
 import { motion } from 'framer-motion';
+import { Area, AreaChart, ReferenceLine, ResponsiveContainer, YAxis } from 'recharts';
 
 const CommonBanner = () => {
+    const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+
     return (
         <section className="bg-cream py-32 md:py-48 px-6 text-center relative overflow-hidden">
             <FadeIn className="max-w-4xl mx-auto relative z-10" delay={0.2} force>
@@ -17,11 +21,18 @@ const CommonBanner = () => {
                 <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto font-light">
                     No medical confusion. No guesswork. Just clarity in 3 steps, <span className="text-teal-700 font-medium">leading directly to your personalized plan.</span>
                 </p>
-                <Button to="/subscribe" className="!bg-teal-700 hover:!bg-teal-800 text-white px-8 py-4 text-lg rounded-full">Starts at $199</Button>
+                <Button onClick={() => setIsJoinModalOpen(true)} className="!bg-teal-700 hover:!bg-teal-800 text-white px-8 py-4 text-lg rounded-full">
+                    Join you at US Health Clinic
+                </Button>
             </FadeIn>
 
             {/* Background Decor */}
             <FadeIn delay={0.4} direction="none" className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-50 pointer-events-none"></FadeIn>
+            
+            <JoinModal 
+                isOpen={isJoinModalOpen} 
+                onClose={() => setIsJoinModalOpen(false)} 
+            />
         </section>
     );
 };
@@ -112,16 +123,26 @@ const GuidedReco = () => {
 
 
 const AgeingGraph = () => {
-    // Coordinate system: 400x200
-    // Y=100 is the "0" baseline
-    // Y=20 is "+1" (Top)
-    // Y=180 is "-1" (Bottom)
+    // Data for the chart - simulating the curve
+    const data = [
+        { x: 0, normal: 0, optimized: 0 },
+        { x: 10, normal: 0.05, optimized: -0.05 },
+        { x: 20, normal: 0.15, optimized: -0.15 },
+        { x: 30, normal: 0.30, optimized: -0.30 },
+        { x: 40, normal: 0.50, optimized: -0.50 },
+        { x: 50, normal: 0.70, optimized: -0.70 },
+        { x: 60, normal: 0.85, optimized: -0.85 },
+        { x: 70, normal: 0.95, optimized: -0.92 },
+        { x: 80, normal: 0.98, optimized: -0.96 },
+        { x: 90, normal: 0.99, optimized: -0.98 },
+        { x: 100, normal: 1.0, optimized: -1.0 },
+    ];
 
     return (
         <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-xl flex-1 flex flex-col justify-between relative overflow-hidden group hover:shadow-2xl transition-all duration-500 min-h-[400px]">
             <div className="mb-4 relative z-10">
-                <h3 className="text-6xl font-serif font-medium text-gray-900 mb-2">70<span className="text-3xl text-gray-400 ml-1">%</span></h3>
-                <p className="text-gray-500 font-medium text-lg">Slow their speed of ageing</p>
+                <h3 className="text-6xl font-serif font-medium text-gray-900 mb-2">70<span className="text-3xl ml-1">%</span></h3>
+                <p className="text-gray-500 text-sm">Slow their speed of ageing</p>
             </div>
 
             <div className="relative flex-1 w-full mt-4 min-h-[250px]">
@@ -141,103 +162,43 @@ const AgeingGraph = () => {
                 </div>
 
                 {/* Graph Area */}
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 400 200" preserveAspectRatio="none">
-                    <defs>
-                        <linearGradient id="gradientNormal" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#f97316" stopOpacity="0.1" />
-                            <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
-                        </linearGradient>
-                        <linearGradient id="gradientOptimized" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#0f766e" stopOpacity="0.2" />
-                            <stop offset="100%" stopColor="#0f766e" stopOpacity="0" />
-                        </linearGradient>
-                    </defs>
+                <div className="w-full h-full absolute inset-0">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                            <defs>
+                                <linearGradient id="gradientOptimized" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#0f766e" stopOpacity={0.2} />
+                                    <stop offset="95%" stopColor="#0f766e" stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            
+                            <YAxis domain={[-1.25, 1.25]} hide />
+                            
+                            <ReferenceLine y={1} stroke="#f3f4f6" strokeDasharray="6 6" strokeWidth={2} />
+                            <ReferenceLine y={0} stroke="#f3f4f6" strokeDasharray="6 6" strokeWidth={2} />
+                            <ReferenceLine y={-1} stroke="#f3f4f6" strokeDasharray="6 6" strokeWidth={2} />
 
-                    {/* Dashed Grid Lines matching labels */}
-                    <line x1="0" y1="20" x2="400" y2="20" stroke="#f3f4f6" strokeWidth="2" strokeDasharray="6 6" />
-                    <line x1="0" y1="100" x2="400" y2="100" stroke="#f3f4f6" strokeWidth="2" strokeDasharray="6 6" />
-                    <line x1="0" y1="180" x2="400" y2="180" stroke="#f3f4f6" strokeWidth="2" strokeDasharray="6 6" />
-
-                    {/* Normal Ageing Line (Top) */}
-                    {/* Curve: Start (0,100) -> Control(150,100) -> End(400,20) */}
-                    <motion.path
-                        d="M0,100 C120,100 200,20 400,20"
-                        fill="none"
-                        stroke="#f97316"
-                        strokeWidth="4"
-                        strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, ease: "easeInOut" }}
-                    />
-
-                    {/* Dots for Normal Line - Calculated roughly based on curve */}
-                    {/* Points visually aligned to the curve C120,100 200,20 400,20 */}
-                    {[
-                        { cx: 0, cy: 100 },
-                        { cx: 100, cy: 85 },
-                        { cx: 200, cy: 50 },
-                        { cx: 300, cy: 25 },
-                        { cx: 400, cy: 20 },
-                    ].map((dot, i) => (
-                        <motion.circle
-                            key={`n-${i}`}
-                            cx={dot.cx}
-                            cy={dot.cy}
-                            r="5"
-                            fill="#f97316"
-                            initial={{ scale: 0, opacity: 0 }}
-                            whileInView={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 1 + (i * 0.1), duration: 0.3 }}
-                        />
-                    ))}
-
-
-                    {/* Optimized Ageing Line (Bottom) */}
-                    {/* Curve: Start (0,100) -> Control(150,100) -> End(400,180) */}
-                    <motion.path
-                        d="M0,100 C120,100 200,180 400,180"
-                        fill="none"
-                        stroke="#0f766e"
-                        strokeWidth="4"
-                        strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
-                    />
-                    {/* Fill for Optimized - Using same curve instructions */}
-                    <motion.path
-                        d="M0,100 C120,100 200,180 400,180 V200 H0 Z"
-                        fill="url(#gradientOptimized)"
-                        stroke="none"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 1, delay: 1 }}
-                    />
-
-                    {/* Dots for Optimized Line */}
-                    {[
-                        { cx: 0, cy: 100 },
-                        { cx: 100, cy: 115 },
-                        { cx: 200, cy: 150 },
-                        { cx: 300, cy: 175 },
-                        { cx: 400, cy: 180 },
-                    ].map((dot, i) => (
-                        <motion.circle
-                            key={`o-${i}`}
-                            cx={dot.cx}
-                            cy={dot.cy}
-                            r="5"
-                            fill="#0f766e"
-                            stroke="white"
-                            strokeWidth="2"
-                            initial={{ scale: 0, opacity: 0 }}
-                            whileInView={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 1.2 + (i * 0.1), duration: 0.3 }}
-                        />
-                    ))}
-
-                </svg>
+                            <Area
+                                type="monotone"
+                                dataKey="normal"
+                                stroke="#f97316"
+                                strokeWidth={4}
+                                fill="none"
+                                animationDuration={1500}
+                                isAnimationActive={true}
+                            />
+                            <Area
+                                type="monotone"
+                                dataKey="optimized"
+                                stroke="#0f766e"
+                                strokeWidth={4}
+                                fill="url(#gradientOptimized)"
+                                animationDuration={1500}
+                                isAnimationActive={true}
+                            />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
         </div>
     );
@@ -249,8 +210,8 @@ const RiskFactors = () => {
             {/* Item 1 */}
             <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-xl flex-1 flex flex-col justify-between group hover:shadow-2xl transition-all duration-500">
                 <div>
-                    <h3 className="text-5xl font-serif font-medium text-gray-900 mb-2">63<span className="text-2xl text-gray-400 ml-1">%</span></h3>
-                    <p className="text-gray-500 font-medium mb-4 text-lg">Helped prevent metabolic issues early</p>
+                    <h3 className="text-5xl font-serif font-medium text-gray-900 mb-2">63<span className="text-2xl ml-1">%</span></h3>
+                    <p className="text-gray-500 mb-4 text-sm">Helped prevent metabolic issues early</p>
 
                     {/* Custom Progress Bar */}
                     <div className="h-2 w-full bg-gray-100 rounded-full relative mt-8">
@@ -277,8 +238,8 @@ const RiskFactors = () => {
             {/* Item 2 */}
             <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-xl flex-1 flex flex-col justify-between group hover:shadow-2xl transition-all duration-500">
                 <div>
-                    <h3 className="text-5xl font-serif font-medium text-gray-900 mb-2">44<span className="text-2xl text-gray-400 ml-1">%</span></h3>
-                    <p className="text-gray-500 font-medium mb-4 text-lg">Helped support heart health early</p>
+                    <h3 className="text-5xl font-serif font-medium text-gray-900 mb-2">44<span className="text-2xl ml-1">%</span></h3>
+                    <p className="text-gray-500 mb-4 text-sm">Helped support heart health early</p>
 
                     {/* Custom Progress Bar */}
                     <div className="h-2 w-full bg-gray-100 rounded-full relative mt-8">

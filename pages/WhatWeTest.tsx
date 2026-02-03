@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
 import { SectionHeading, Button, Accordion } from '../components/UI';
+import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
+import { CTA } from '../components/CTA';
 import { panels } from '../data/panels';
 import { Link } from 'react-router-dom';
+import { JoinModal } from '../components/JoinModal';
 
-const Hero = () => {
+const Hero = ({ onOpenModal }: { onOpenModal: () => void }) => {
     return (
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-cream">
             <div className="max-w-7xl mx-auto px-6">
@@ -23,7 +26,7 @@ const Hero = () => {
                         At US Health Clinic, biomarker testing is the foundation of everything we do. By measuring specific molecules in blood samples, we move beyond "one-size-fits-all" advice to a personalized, proactive approach that identifies disease risk before symptoms appear.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-                        <Button>Start Your Analysis</Button>
+                        <Button onClick={onOpenModal}>Start Your Analysis</Button>
                     </div>
                 </div>
             </div>
@@ -64,13 +67,12 @@ const WhyItMatters = () => {
                 <div className="flex flex-col md:flex-row gap-16 items-start">
                     <div className="md:w-1/3 relative md:sticky md:top-32">
                         <span className="text-teal-700 font-bold tracking-widest text-sm uppercase mb-4 block">The Value</span>
-                        <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6 leading-tight">
-                            Why It <br /> <span className="italic text-gray-400">Matters</span>
+                        <h2 className="text-4xl md:text-5xl font-serif font-medium text-gray-900 mb-6 leading-tight">
+                            Why It <br /> <span className="italic text-teal-700">Matters</span>
                         </h2>
                         <p className="text-gray-500 text-lg leading-relaxed mb-8">
                             Waiting for symptoms is a reactive strategy. Biomarker testing empowers you to intervene when it matters most: early.
                         </p>
-                        <Button variant="secondary">Join Membership</Button>
                     </div>
 
                     <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -144,7 +146,7 @@ const BiomarkerList = () => {
         <section className="py-24 bg-white relative">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-left mb-16">
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">Biomarkers We Test At US Health Clinic</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif font-medium text-gray-900 mb-6">Biomarkers We Test At US Health Clinic</h2>
 
                     <div className="flex items-start gap-4 mb-4">
                         <span className="text-2xl font-bold text-gray-900">100+ labs per year</span>
@@ -188,10 +190,6 @@ const BiomarkerList = () => {
                                         />
                                         <h3 className="text-xl font-medium text-gray-900">{cat.title} Biomarkers</h3>
                                     </div>
-                                    <Link to={`/panel/${cat.id}`} className="text-teal-700 hover:text-teal-900 text-sm font-medium flex items-center gap-1 group/link">
-                                        View Detail Page
-                                        <Icons.ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
-                                    </Link>
                                 </div>
 
                                 <div className="border-t border-gray-100">
@@ -232,7 +230,7 @@ const ClinicalValue = () => {
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-700/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
                     <div className="relative z-10">
-                        <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+                        <h2 className="text-4xl md:text-6xl font-serif font-medium text-white mb-6 leading-tight">
                             $2,500+ of Clinical <br className="hidden md:block" />
                             <span className="italic text-teal-300">Testing. Included.</span>
                         </h2>
@@ -291,51 +289,41 @@ const FAQ = () => {
     ];
 
     return (
-        <section className="py-24 bg-cream">
-            <div className="max-w-4xl mx-auto px-6">
-                <h2 className="text-4xl md:text-5xl font-serif text-center text-gray-900 mb-16">FAQs</h2>
-                <div className="space-y-4">
+        <section className="py-32 bg-white">
+            <div className="max-w-3xl mx-auto px-6">
+                <FadeIn><SectionHeading>FAQs</SectionHeading></FadeIn>
+                <StaggerContainer className="mt-12">
                     {faqs.map((faq, i) => (
-                        <div key={i} className="bg-white rounded-3xl px-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <StaggerItem key={i}>
                             <Accordion
                                 title={faq.q}
                                 content={faq.a}
                             />
-                        </div>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerContainer>
             </div>
         </section>
     );
 };
 
-const CTA = () => (
-    <section className="py-32 bg-teal-900 text-white relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <h2 className="text-4xl md:text-6xl font-serif font-medium mb-8 leading-tight">
-                Knowledge is power. <br />
-                <span className="italic text-teal-300">Action is health.</span>
-            </h2>
-            <p className="text-teal-100/80 text-xl mb-12 max-w-2xl mx-auto font-light">
-                Secure your annual membership today and get the most comprehensive baseline of your life.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="secondary" className="bg-white text-teal-900 hover:bg-teal-50 border-none">Get Started</Button>
-                <Button variant="outline" className="border-teal-500 text-teal-100 hover:bg-teal-800 hover:text-white hover:border-teal-400">View Sample Report</Button>
-            </div>
-        </div>
-    </section>
-);
 
 const WhatWeTest = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <main>
-            <Hero />
+            <Hero onOpenModal={() => setIsModalOpen(true)} />
             <WhyItMatters />
             <ClinicalValue />
             <BiomarkerList />
             <FAQ />
-            <CTA />
+            <CTA
+                title={<>Knowledge is power. <br /><span className="italic text-teal-300">Action is health.</span></>}
+                description="Secure your annual membership today and get the most comprehensive baseline of your life."
+                onButtonClick={() => setIsModalOpen(true)}
+            />
+            <JoinModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </main>
     );
 };

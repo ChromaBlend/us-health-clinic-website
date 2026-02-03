@@ -10,6 +10,10 @@ import { WelcomeScreen } from '../components/VisionBoard/WelcomeScreen';
 
 const VisionBoard = () => {
     const [items, setItems] = useState<BoardItemProps[]>([]);
+    const itemsRef = useRef(items);
+    itemsRef.current = items;
+    
+    const [history, setHistory] = useState<BoardItemProps[][]>([]);
     const [maxZIndex, setMaxZIndex] = useState(1);
     const [isAssetSheetOpen, setIsAssetSheetOpen] = useState(false);
 
@@ -22,7 +26,22 @@ const VisionBoard = () => {
     // currentPoints stores the raw {x, y} for the active stroke
     const [currentPoints, setCurrentPoints] = useState<{ x: number, y: number }[]>([]);
 
+    const saveHistory = React.useCallback(() => {
+        setHistory(prev => [...prev, itemsRef.current]);
+    }, []);
+
+    const handleUndo = () => {
+        setHistory(prev => {
+            if (prev.length === 0) return prev;
+            const newHistory = [...prev];
+            const previousItems = newHistory.pop();
+            setItems(previousItems || []);
+            return newHistory;
+        });
+    };
+
     const handleSelectAsset = (url: string) => {
+        saveHistory();
         const newItem: BoardItemProps = {
             id: Date.now().toString(),
             type: 'image',
@@ -34,6 +53,7 @@ const VisionBoard = () => {
             onUpdate: updateItem,
             onDelete: deleteItem,
             onBringToFront: bringToFront,
+            onHistorySave: () => {},
         };
         setItems((prev) => [...prev, newItem]);
         setMaxZIndex((prev) => prev + 1);
@@ -50,6 +70,7 @@ const VisionBoard = () => {
                     if (blob) {
                         const reader = new FileReader();
                         reader.onload = (event) => {
+                            saveHistory();
                             const newItem: BoardItemProps = {
                                 id: Date.now().toString(),
                                 type: 'image',
@@ -61,6 +82,7 @@ const VisionBoard = () => {
                                 onUpdate: updateItem,
                                 onDelete: deleteItem,
                                 onBringToFront: bringToFront,
+                                onHistorySave: () => {},
                             };
                             setItems((prev) => [...prev, newItem]);
                             setMaxZIndex((prev) => prev + 1);
@@ -73,11 +95,12 @@ const VisionBoard = () => {
 
         window.addEventListener('paste', handlePaste);
         return () => window.removeEventListener('paste', handlePaste);
-    }, [maxZIndex]);
+    }, [maxZIndex, saveHistory]);
 
     const handleAddImage = (file: File) => {
         const reader = new FileReader();
         reader.onload = (e) => {
+            saveHistory();
             const newItem: BoardItemProps = {
                 id: Date.now().toString(),
                 type: 'image',
@@ -89,6 +112,7 @@ const VisionBoard = () => {
                 onUpdate: updateItem,
                 onDelete: deleteItem,
                 onBringToFront: bringToFront,
+                onHistorySave: () => {},
             };
             setItems((prev) => [...prev, newItem]);
             setMaxZIndex((prev) => prev + 1);
@@ -97,6 +121,7 @@ const VisionBoard = () => {
     };
 
     const handleAddNote = () => {
+        saveHistory();
         const newItem: BoardItemProps = {
             id: Date.now().toString(),
             type: 'note',
@@ -108,12 +133,14 @@ const VisionBoard = () => {
             onUpdate: updateItem,
             onDelete: deleteItem,
             onBringToFront: bringToFront,
+            onHistorySave: () => {},
         };
         setItems((prev) => [...prev, newItem]);
         setMaxZIndex((prev) => prev + 1);
     };
 
     const handleAddText = () => {
+        saveHistory();
         const newItem: BoardItemProps = {
             id: Date.now().toString(),
             type: 'text',
@@ -124,6 +151,7 @@ const VisionBoard = () => {
             onUpdate: updateItem,
             onDelete: deleteItem,
             onBringToFront: bringToFront,
+            onHistorySave: () => {},
         };
         setItems((prev) => [...prev, newItem]);
         setMaxZIndex((prev) => prev + 1);
@@ -134,6 +162,7 @@ const VisionBoard = () => {
     };
 
     const deleteItem = (id: string) => {
+        saveHistory();
         setItems((prev) => prev.filter((item) => item.id !== id));
     };
 
@@ -201,8 +230,10 @@ const VisionBoard = () => {
             onUpdate: updateItem,
             onDelete: deleteItem,
             onBringToFront: bringToFront,
+            onHistorySave: () => {},
         };
 
+        saveHistory();
         setItems((prev) => [...prev, newItem]);
         setMaxZIndex((prev) => prev + 1);
         setCurrentPoints([]); // Clear current stroke
@@ -282,7 +313,7 @@ const VisionBoard = () => {
             </svg>
 
             {/* Canvas Area - Items */}
-            <div className={`absolute inset-0 w-full h-full overflow-hidden ${isDrawing ? 'pointer-events-none' : ''}`}>
+            <div className={`absolute inset-0 w-full h-full overflow-hidden`}>
                 {items.map((item) => (
                     <BoardItem
                         key={item.id}
@@ -290,6 +321,7 @@ const VisionBoard = () => {
                         onUpdate={updateItem}
                         onDelete={deleteItem}
                         onBringToFront={bringToFront}
+                        onHistorySave={saveHistory}
                     />
                 ))}
             </div>
@@ -302,6 +334,9 @@ const VisionBoard = () => {
                 isDrawing={isDrawing}
                 onToggleDrawing={() => setIsDrawing(!isDrawing)}
                 onDownload={handleDownload}
+                isEmpty={items.length === 0}
+                onUndo={handleUndo}
+                canUndo={history.length > 0}
             />
 
             <AssetSheet

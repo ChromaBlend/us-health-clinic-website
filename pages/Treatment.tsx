@@ -1,8 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, MotionValue, useMotionValueEvent } from 'framer-motion';
 import { Button, SectionHeading, Accordion } from '../components/UI';
 import { Icons } from '../components/Icons';
 import { Link } from 'react-router-dom';
+import { JoinModal } from '../components/JoinModal';
+import { CTA } from '../components/CTA';
 
 const ADDITIONAL_CONCERNS = [
     {
@@ -56,7 +58,7 @@ const FAQS = [
     { question: "Can my treatment plan change over time?", answer: "Yes. Your body changes so your plan does too. That’s why ongoing testing and guidance matter." }
 ];
 
-const Hero = () => (
+const Hero = ({ onOpen }: { onOpen: () => void }) => (
     <section className="bg-cream py-32 md:py-48 px-6 text-center relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
@@ -69,11 +71,9 @@ const Hero = () => (
             <p className="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto font-light">
                 We use your 100+ biomarkers to build a precision protocol just for you—from prescriptions to hormones to peptides.
             </p>
-            <Link to="/subscribe">
-                <Button className="px-8 py-4 text-lg rounded-full shadow-xl shadow-teal-900/10">
-                    Find Your Protocol
-                </Button>
-            </Link>
+            <Button onClick={onOpen} className="px-8 py-4 text-lg rounded-full shadow-xl shadow-teal-900/10">
+                Find Your Protocol
+            </Button>
         </div>
     </section>
 );
@@ -101,7 +101,7 @@ const AdditionalConcerns = () => (
 
                         {/* Content */}
                         <div className="p-6">
-                            <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{concern.title}</h3>
+                            <h3 className="text-xl font-serif font-medium text-gray-900 mb-3">{concern.title}</h3>
 
                             {/* Approach */}
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
@@ -130,7 +130,7 @@ const WhyThisMatters = () => (
                     <div className="w-14 h-14 rounded-full bg-teal-100 flex items-center justify-center text-teal-800 mb-2">
                         <Icons.Activity size={28} />
                     </div>
-                    <h3 className="text-2xl font-serif font-bold text-gray-900">Data First, Meds Second</h3>
+                    <h3 className="text-2xl font-serif text-gray-900">Data First, Meds Second</h3>
                     <p className="text-gray-600 leading-relaxed">
                         We don’t guess. We test. Every prescription is based on your unique bloodwork, not just generic symptoms.
                     </p>
@@ -139,7 +139,7 @@ const WhyThisMatters = () => (
                     <div className="w-14 h-14 rounded-full bg-teal-100 flex items-center justify-center text-teal-800 mb-2">
                         <Icons.Zap size={28} />
                     </div>
-                    <h3 className="text-2xl font-serif font-bold text-gray-900">Lifestyle as Medicine</h3>
+                    <h3 className="text-2xl font-serif text-gray-900">Lifestyle as Medicine</h3>
                     <p className="text-gray-600 leading-relaxed">
                         Supplements are the spark; our lifestyle protocols are the fuel. We give you a sustainable plan that fits into your real life.
                     </p>
@@ -148,17 +148,11 @@ const WhyThisMatters = () => (
                     <div className="w-14 h-14 rounded-full bg-teal-100 flex items-center justify-center text-teal-800 mb-2">
                         <Icons.ShieldCheck size={28} />
                     </div>
-                    <h3 className="text-2xl font-serif font-bold text-gray-900">The Full Picture</h3>
+                    <h3 className="text-2xl font-serif text-gray-900">The Full Picture</h3>
                     <p className="text-gray-600 leading-relaxed">
                         We connect the dots between your sleep, your gut, and your hormones to fix the root cause, not just patch it.
                     </p>
                 </div>
-            </div>
-
-            <div className="mt-16 text-center">
-                <Link to="/subscribe">
-                    <Button>Start Program</Button>
-                </Link>
             </div>
         </div>
     </section>
@@ -167,7 +161,7 @@ const WhyThisMatters = () => (
 const FaqSection = () => (
     <section className="py-24 bg-white px-6">
         <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-serif font-bold text-center text-gray-900 mb-16">Treatment FAQs</h2>
+            <h2 className="text-4xl font-serif font-medium text-center text-gray-900 mb-16">Frequently Asked Questions</h2>
             <div className="space-y-4">
                 {FAQS.map((faq, i) => (
                     <Accordion key={i} title={faq.question} content={faq.answer} />
@@ -259,13 +253,13 @@ const GUIDED_PATHS = [
 
 // --- CONCEPT D: Vertical Split-Screen Timeline ---
 // --- CONCEPT D: Vertical Split-Screen Timeline (Sticky Stack) ---
-const GuidedPathTimeline = () => {
+const GuidedPathTimeline = ({ onOpen }: { onOpen: () => void }) => {
     return (
         <section className="bg-white relative py-24 md:py-32 overflow-hidden">
 
             <div className="text-center mb-24 px-6 relative z-10">
                 <span className="text-sm font-bold text-teal-600 uppercase tracking-widest bg-teal-50 px-4 py-2 rounded-full">Explore Protocols</span>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mt-6 mb-4">Your Path to Wellness</h2>
+                <h2 className="text-4xl md:text-5xl font-serif font-medium text-gray-900 mt-6 mb-4">Your Path to Wellness</h2>
                 <p className="text-gray-500 max-w-lg mx-auto">A guided journey to reset your biology.</p>
             </div>
 
@@ -275,7 +269,7 @@ const GuidedPathTimeline = () => {
 
                 <div className="space-y-0 relative z-10">
                     {GUIDED_PATHS.map((item, i) => (
-                        <TimelineItem key={i} item={item} index={i} total={GUIDED_PATHS.length} />
+                        <TimelineItem key={i} item={item} index={i} total={GUIDED_PATHS.length} onOpen={onOpen} />
                     ))}
                 </div>
             </div>
@@ -283,7 +277,7 @@ const GuidedPathTimeline = () => {
     );
 };
 
-const TimelineItem: React.FC<{ item: any, index: number, total: number }> = ({ item, index, total }) => {
+const TimelineItem: React.FC<{ item: any, index: number, total: number, onOpen: () => void }> = ({ item, index, total, onOpen }) => {
     const isEven = index % 2 !== 0;
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -330,7 +324,7 @@ const TimelineItem: React.FC<{ item: any, index: number, total: number }> = ({ i
 
                 {/* Content Side */}
                 <div className="w-full md:w-1/2 px-0 md:px-12 lg:px-16 text-left">
-                    <h3 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mb-6 leading-tight">
+                    <h3 className="text-3xl lg:text-4xl font-serif text-gray-900 mb-6 leading-tight">
                         {item.title}
                     </h3>
 
@@ -359,24 +353,32 @@ const TimelineItem: React.FC<{ item: any, index: number, total: number }> = ({ i
                         </div>
                     </div>
 
-                    <Link to="/subscribe">
-                        <Button variant="ghost" className="bg-white !text-gray-900 hover:!bg-gray-50 border border-gray-200 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all font-medium">
-                            {item.cta}
-                        </Button>
-                    </Link>
+                    <Button onClick={onOpen} variant="primary" className="px-8 py-3 rounded-full font-medium">
+                        {item.cta}
+                    </Button>
                 </div>
             </motion.div>
         </div>
     );
 };
 const Treatment = () => {
+    const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+
     return (
         <main>
-            <Hero />
-            <GuidedPathTimeline />
+            <Hero onOpen={() => setIsJoinModalOpen(true)} />
+            <GuidedPathTimeline onOpen={() => setIsJoinModalOpen(true)} />
             <AdditionalConcerns />
             <WhyThisMatters />
             <FaqSection />
+            <CTA
+                title="Ready to redefine your biology?"
+                description="Join US Health Clinic today and get your personalized precision protocol."
+                buttonText="Find Your Protocol"
+                onButtonClick={() => setIsJoinModalOpen(true)}
+                variant="teal"
+            />
+            <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} />
         </main>
     );
 };

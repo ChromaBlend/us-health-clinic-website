@@ -23,6 +23,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Subscribe from './pages/Subscribe';
 import FoodSignalProgram from './pages/FoodSignalProgram';
+import FoodSignalProgram2 from './pages/FoodSignalProgram2';
 import VisionBoard from './pages/VisionBoard';
 
 import ScrollToTop from './components/ScrollToTop';
@@ -105,6 +106,7 @@ const App = () => {
             <Route path="/signup" element={<PageTransition><SignUp /></PageTransition>} />
             <Route path="/subscribe" element={<PageTransition><Subscribe /></PageTransition>} />
             <Route path="/food-signal-program" element={<PageTransition><FoodSignalProgram /></PageTransition>} />
+            <Route path="/food-signal-program-2" element={<PageTransition><FoodSignalProgram2 /></PageTransition>} />
             <Route path="/vision-board" element={<PageTransition><VisionBoard /></PageTransition>} />
           </Routes>
         </AnimatePresence>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image as ImageIcon, StickyNote, Type, Plus, Pen, Download } from 'lucide-react';
+import { Image as ImageIcon, StickyNote, Type, Plus, Pen, Download, Undo } from 'lucide-react';
 
 interface ToolbarProps {
     onAddImage: (file: File) => void;
@@ -9,9 +9,12 @@ interface ToolbarProps {
     isDrawing: boolean;
     onToggleDrawing: () => void;
     onDownload: () => void;
+    isEmpty: boolean;
+    onUndo: () => void;
+    canUndo: boolean;
 }
 
-export const Toolbar: React.FC<ToolbarProps> = ({ onAddImage, onAddNote, onAddText, onOpenAssets, isDrawing, onToggleDrawing, onDownload }) => {
+export const Toolbar: React.FC<ToolbarProps> = ({ onAddImage, onAddNote, onAddText, onOpenAssets, isDrawing, onToggleDrawing, onDownload, isEmpty, onUndo, canUndo }) => {
     const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,18 +92,36 @@ export const Toolbar: React.FC<ToolbarProps> = ({ onAddImage, onAddNote, onAddTe
                 </span>
             </div>
 
+            {/* Undo */}
+            <div className="relative group">
+                <button
+                    onClick={onUndo}
+                    disabled={!canUndo}
+                    className={`p-4 rounded-full transition-colors ${!canUndo ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}
+                    title="Undo"
+                >
+                    <Undo size={24} />
+                </button>
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    Undo
+                </span>
+            </div>
+
             {/* Download */}
             <div className="relative group">
                 <button
                     onClick={onDownload}
-                    className="p-4 rounded-full bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors"
-                    title="Download Board"
+                    disabled={isEmpty}
+                    className={`p-4 rounded-full transition-colors ${isEmpty ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}
+                    title={isEmpty ? "Board is empty" : "Download Board"}
                 >
                     <Download size={24} />
                 </button>
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                    Download
-                </span>
+                {!isEmpty && (
+                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        Download
+                    </span>
+                )}
             </div>
 
             <div className="w-px h-8 bg-gray-200 mx-2"></div>
