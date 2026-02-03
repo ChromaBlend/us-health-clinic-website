@@ -28,9 +28,11 @@ export const Navbar = () => {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-3 group cursor-pointer" onClick={() => setMobileMenuOpen(false)}>
-          <div className="w-8 h-8 bg-teal-700 text-white flex items-center justify-center rounded-tr-lg rounded-bl-lg transition-transform group-hover:rotate-12">
-            <span className="font-serif font-bold text-lg">U</span>
-          </div>
+          <img
+            src="/images/ushc-iconlogo.png"
+            alt="USHC Logo"
+            className="w-10 h-10 object-contain transition-transform group-hover:scale-110"
+          />
           <span className={`font-serif text-xl font-bold tracking-tight ${isScrolled ? 'text-teal-900' : 'text-teal-900'} group-hover:opacity-80 transition-opacity`}>US Health Clinic</span>
         </Link>
 

@@ -6,8 +6,12 @@ export const Footer = () => (
     <footer className="bg-teal-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-5 gap-12">
             <div className="col-span-1">
-                <div className="flex items-center gap-2 mb-6">
-                    <div className="w-6 h-6 bg-white rounded-tr rounded-bl"></div>
+                <div className="flex items-center gap-3 mb-6">
+                    <img
+                        src="/images/ushc-iconlogo-white.png"
+                        alt="USHC Logo"
+                        className="w-8 h-8 object-contain"
+                    />
                     <span className="font-serif text-xl font-bold">US Health Clinic</span>
                 </div>
             </div>
@@ -24,7 +28,6 @@ export const Footer = () => (
                 <h5 className="font-bold mb-6 text-teal-200">Join</h5>
                 <ul className="space-y-4 text-teal-50/80">
                     <li><Link to="#" className="hover:text-white transition-colors">Sign In</Link></li>
-                    <li><Link to="#" className="hover:text-white transition-colors">Facebook Group</Link></li>
                     <li><Link to="/franchise" className="hover:text-white transition-colors">Franchise Opportunities</Link></li>
                     <li><Link to="/doctors" className="hover:text-white transition-colors">Join as a Doctor</Link></li>
                     <li><Link to="/food-signal-program" className="hover:text-white transition-colors">Food Signal Program</Link></li>
@@ -43,8 +46,7 @@ export const Footer = () => (
             <div>
                 <h5 className="font-bold mb-6 text-teal-200">Contact</h5>
                 <ul className="space-y-4 text-teal-50/80">
-                    <li className="flex items-center gap-2"><Icons.Phone size={16} /> +1 (866) 260-2735</li>
-                    <li className="flex items-center gap-2"><Icons.Mail size={16} /> hello@joinjoult.com</li>
+                    <li className="flex items-center gap-2"><Icons.Mail size={16} />contact@ushealthclinic.com</li>
                 </ul>
             </div>
         </div>
